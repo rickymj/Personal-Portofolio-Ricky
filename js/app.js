@@ -323,6 +323,18 @@ function renderEducation() {
           ? `<div style="font-size:13px; margin-top:2px; color:var(--text-secondary);">${escapeHtml(cert.desc)}</div>`
           : '';
 
+        const imageBtnHtml = cert.image
+          ? `<div style="margin-top:8px;">
+               <button class="btn btn-secondary btn-sm" onclick="viewCertImage('${cert.id}')" style="font-size:11.5px; padding:3px 8px; gap:4px; border-color:var(--border-medium);">
+                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                   <circle cx="12" cy="12" r="3"></circle>
+                 </svg>
+                 <span>View Certificate</span>
+               </button>
+             </div>`
+          : '';
+
         return `
           <li class="cert-item" data-id="${cert.id}">
             ${actionButtons}
@@ -331,6 +343,7 @@ function renderEducation() {
               <strong style="color:#fff;">${escapeHtml(cert.title)}</strong>
               <div style="font-size:13px; color:var(--text-muted); margin-top:2px;">${escapeHtml(cert.issuer_date || '')}</div>
               ${descHtml}
+              ${imageBtnHtml}
             </div>
           </li>
         `;
@@ -623,6 +636,8 @@ function editCertification(id) {
   document.getElementById('formCertIssuerDate').value = cert.issuer_date || '';
   document.getElementById('formCertIcon').value = cert.icon || 'check';
   document.getElementById('formCertDesc').value = cert.desc || '';
+  document.getElementById('formCertImageData').value = cert.image || '';
+  document.getElementById('formCertImage').value = '';
 
   updateEduModalFields();
   if (eduModalEl) eduModalEl.classList.add('open');
@@ -786,8 +801,9 @@ function initFormSubmissions() {
         const issuer_date = document.getElementById('formCertIssuerDate').value.trim();
         const icon = document.getElementById('formCertIcon').value;
         const desc = document.getElementById('formCertDesc').value.trim();
+        const image = document.getElementById('formCertImageData').value.trim();
 
-        const item = { id, title, issuer_date, icon, desc };
+        const item = { id, title, issuer_date, icon, desc, image };
         const idx = certifications.findIndex(c => c.id === id);
         if (idx >= 0) {
           certifications[idx] = item;
@@ -944,6 +960,22 @@ function applyRevealAnimations() {
 // 7. INITIALIZATION & EVENT BINDINGS
 // ============================================================================
 
+function viewCertImage(id) {
+  const cert = certifications.find(c => c.id === id);
+  if (!cert || !cert.image) return;
+
+  const modal = document.getElementById('certImageModal');
+  const img = document.getElementById('certImageModalImg');
+  const title = document.getElementById('certImageModalTitle');
+
+  if (img) {
+    img.src = cert.image;
+    img.alt = cert.title || 'Certificate';
+  }
+  if (title) title.innerHTML = `<span>${escapeHtml(cert.title || 'Certificate Preview')}</span>`;
+  if (modal) modal.classList.add('open');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Init Modules
   if (typeof Auth !== 'undefined') Auth.init();
@@ -1027,6 +1059,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ESC key to close any open modal
+  // Cert image file input -> base64
+  const certImageInput = document.getElementById('formCertImage');
+  if (certImageInput) {
+    certImageInput.addEventListener('change', () => {
+      const file = certImageInput.files && certImageInput.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        showToast('File harus berupa gambar');
+        certImageInput.value = '';
+        return;
+      }
+      if (file.size > 4 * 1024 * 1024) {
+        showToast('Ukuran gambar sertifikat maksimal 4MB');
+        certImageInput.value = '';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        document.getElementById('formCertImageData').value = reader.result;
+        showToast('Foto sertifikat siap disimpan');
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Cert image viewer modal
+  const certImgModal = document.getElementById('certImageModal');
+  const btnCloseCertImg = document.getElementById('btnCloseCertImageModal');
+  const btnCloseCertImgBot = document.getElementById('btnCloseCertImageModalBottom');
+  const closeCertImgModal = () => { if (certImgModal) certImgModal.classList.remove('open'); };
+  if (btnCloseCertImg) btnCloseCertImg.addEventListener('click', closeCertImgModal);
+  if (btnCloseCertImgBot) btnCloseCertImgBot.addEventListener('click', closeCertImgModal);
+  if (certImgModal) certImgModal.addEventListener('click', (e) => { if (e.target === certImgModal) closeCertImgModal(); });
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeAllModals();
