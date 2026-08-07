@@ -47,9 +47,115 @@ function loadAllData() {
 function saveData(key, data) {
   try {
     localStorage.setItem(key, JSON.stringify(data));
+    return true;
   } catch (e) {
     console.error(`Error saving ${key} to localStorage:`, e);
+    if (typeof showToast === 'function') {
+      showToast('Data gagal disimpan. Gambar terlalu besar untuk browser storage.');
+    }
+    return false;
   }
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+function compressImageFile(file, maxSide = 1400, quality = 0.78) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(img.width * scale));
+      canvas.height = Math.max(1, Math.round(img.height * scale));
+
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          reject(new Error('Gagal kompres gambar'));
+          return;
+        }
+        try {
+          resolve(await readFileAsDataUrl(blob));
+        } catch (e) {
+          reject(e);
+        }
+      }, 'image/jpeg', quality);
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error('Gambar tidak dapat dibaca'));
+    };
+
+    img.src = url;
+  });
+}
+
+const CERT_IMAGE_DB_NAME = 'rmj_portfolio_cert_images';
+const CERT_IMAGE_STORE_NAME = 'images';
+const CERT_IMAGE_PREFIX = 'indexeddb:';
+
+function openCertImageDb() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(CERT_IMAGE_DB_NAME, 1);
+    request.onupgradeneeded = () => request.result.createObjectStore(CERT_IMAGE_STORE_NAME);
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function setCertImage(id, dataUrl) {
+  const db = await openCertImageDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(CERT_IMAGE_STORE_NAME, 'readwrite');
+    tx.objectStore(CERT_IMAGE_STORE_NAME).put(dataUrl, id);
+    tx.oncomplete = () => {
+      db.close();
+      resolve(`${CERT_IMAGE_PREFIX}${id}`);
+    };
+    tx.onerror = () => {
+      db.close();
+      reject(tx.error);
+    };
+  });
+}
+
+async function getCertImage(src) {
+  if (!src || !src.startsWith(CERT_IMAGE_PREFIX)) return src || '';
+  const db = await openCertImageDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(CERT_IMAGE_STORE_NAME, 'readonly');
+    const request = tx.objectStore(CERT_IMAGE_STORE_NAME).get(src.slice(CERT_IMAGE_PREFIX.length));
+    request.onsuccess = () => resolve(request.result || '');
+    request.onerror = () => reject(request.error);
+    tx.oncomplete = () => db.close();
+  });
+}
+
+async function deleteCertImage(id) {
+  const db = await openCertImageDb();
+  return new Promise((resolve) => {
+    const tx = db.transaction(CERT_IMAGE_STORE_NAME, 'readwrite');
+    tx.objectStore(CERT_IMAGE_STORE_NAME).delete(id);
+    tx.oncomplete = tx.onerror = () => {
+      db.close();
+      resolve();
+    };
+  });
 }
 
 // Helper: Escape HTML
@@ -643,7 +749,7 @@ function editCertification(id) {
   if (eduModalEl) eduModalEl.classList.add('open');
 }
 
-function deleteCertification(id) {
+async function deleteCertification(id) {
   if (!Auth.isAdmin()) return;
   const cert = certifications.find(c => c.id === id);
   if (!cert) return;
@@ -651,6 +757,7 @@ function deleteCertification(id) {
   if (confirm(`Yakin ingin menghapus sertifikasi "${cert.title}"?`)) {
     certifications = certifications.filter(c => c.id !== id);
     saveData(STORAGE_KEYS.certifications, certifications);
+    await deleteCertImage(id);
     renderEducation();
     showToast('Sertifikasi berhasil dihapus');
   }
@@ -774,7 +881,7 @@ function initFormSubmissions() {
 
   // 4. Education & Certification Form
   if (eduFormEl) {
-    eduFormEl.addEventListener('submit', (e) => {
+    eduFormEl.addEventListener('submit', async (e) => {
       e.preventDefault();
       const itemType = document.getElementById('formEduItemType').value;
       const id = document.getElementById('formEduItemId').value || ((itemType === 'education' ? 'edu_' : 'cert_') + Date.now());
@@ -801,7 +908,11 @@ function initFormSubmissions() {
         const issuer_date = document.getElementById('formCertIssuerDate').value.trim();
         const icon = document.getElementById('formCertIcon').value;
         const desc = document.getElementById('formCertDesc').value.trim();
-        const image = document.getElementById('formCertImageData').value.trim();
+        let image = document.getElementById('formCertImageData').value.trim();
+
+        if (image.startsWith('data:')) {
+          image = await setCertImage(id, image);
+        }
 
         const item = { id, title, issuer_date, icon, desc, image };
         const idx = certifications.findIndex(c => c.id === id);
@@ -866,13 +977,14 @@ function toggleEditMode() {
 // 6. RESET DATA & EXPORT
 // ============================================================================
 
-function resetToDefault() {
+async function resetToDefault() {
   if (!Auth.isAdmin()) {
     showToast('Hanya Admin yang dapat me-reset data');
     return;
   }
   if (confirm('Kembalikan seluruh data portofolio (pengalaman, proyek, skill, pendidikan) ke default awal?')) {
     Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
+    indexedDB.deleteDatabase(CERT_IMAGE_DB_NAME);
 
     experiences = typeof DEFAULT_EXPERIENCES !== 'undefined' ? [...DEFAULT_EXPERIENCES] : [];
     projects = typeof DEFAULT_PROJECTS !== 'undefined' ? [...DEFAULT_PROJECTS] : [];
@@ -960,7 +1072,7 @@ function applyRevealAnimations() {
 // 7. INITIALIZATION & EVENT BINDINGS
 // ============================================================================
 
-function viewCertImage(id) {
+async function viewCertImage(id) {
   const cert = certifications.find(c => c.id === id);
   if (!cert || !cert.image) return;
 
@@ -968,12 +1080,22 @@ function viewCertImage(id) {
   const img = document.getElementById('certImageModalImg');
   const title = document.getElementById('certImageModalTitle');
 
-  if (img) {
-    img.src = cert.image;
-    img.alt = cert.title || 'Certificate';
+  try {
+    const image = await getCertImage(cert.image);
+    if (!image) {
+      showToast('Gambar sertifikat belum tersimpan');
+      return;
+    }
+    if (img) {
+      img.src = image;
+      img.alt = cert.title || 'Certificate';
+    }
+    if (title) title.innerHTML = `<span>${escapeHtml(cert.title || 'Certificate Preview')}</span>`;
+    if (modal) modal.classList.add('open');
+  } catch (e) {
+    console.error('Error loading certificate image:', e);
+    showToast('Gambar sertifikat gagal dibuka');
   }
-  if (title) title.innerHTML = `<span>${escapeHtml(cert.title || 'Certificate Preview')}</span>`;
-  if (modal) modal.classList.add('open');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1062,7 +1184,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cert image file input -> base64
   const certImageInput = document.getElementById('formCertImage');
   if (certImageInput) {
-    certImageInput.addEventListener('change', () => {
+    certImageInput.addEventListener('change', async () => {
       const file = certImageInput.files && certImageInput.files[0];
       if (!file) return;
       if (!file.type.startsWith('image/')) {
@@ -1070,17 +1192,20 @@ document.addEventListener('DOMContentLoaded', () => {
         certImageInput.value = '';
         return;
       }
-      if (file.size > 4 * 1024 * 1024) {
-        showToast('Ukuran gambar sertifikat maksimal 4MB');
+      if (file.size > 8 * 1024 * 1024) {
+        showToast('Ukuran gambar sertifikat maksimal 8MB');
         certImageInput.value = '';
         return;
       }
-      const reader = new FileReader();
-      reader.onload = () => {
-        document.getElementById('formCertImageData').value = reader.result;
+
+      try {
+        document.getElementById('formCertImageData').value = await compressImageFile(file);
         showToast('Foto sertifikat siap disimpan');
-      };
-      reader.readAsDataURL(file);
+      } catch (e) {
+        console.error('Error processing certificate image:', e);
+        showToast('Gambar sertifikat gagal diproses');
+        certImageInput.value = '';
+      }
     });
   }
 
