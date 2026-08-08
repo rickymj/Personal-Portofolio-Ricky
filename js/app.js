@@ -6,11 +6,11 @@
 
 // Storage Keys
 const STORAGE_KEYS = {
-  experiences: 'rmj_portfolio_experiences_v13_en',
-  projects: 'rmj_portfolio_projects_v13_en',
-  skills: 'rmj_portfolio_skills_v13_en',
-  education: 'rmj_portfolio_education_v13_en',
-  certifications: 'rmj_portfolio_certifications_v13_en'
+  experiences: 'rmj_portfolio_experiences_v15_en',
+  projects: 'rmj_portfolio_projects_v15_en',
+  skills: 'rmj_portfolio_skills_v15_en',
+  education: 'rmj_portfolio_education_v15_en',
+  certifications: 'rmj_portfolio_certifications_v15_en'
 };
 
 // Global State

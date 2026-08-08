@@ -403,11 +403,11 @@ const CERTIFICATIONS_EN = [
   },
   {
     id: "cert_qcc_2",
-    title: "2nd Place Winner in QCC Batch 2 at SIMGROUP",
-    issuer_date: "SIMGROUP, April 2025",
+    title: "2nd Place Winner in QCC Batch 2 (2024–2025) at SIMGROUP",
+    issuer_date: "SIMGROUP, August 2025",
     icon: "star",
-    desc: "Improved Client Survey Gross Margin (Transportation Technology Indonesia, JABODETABEK Area) from 20% to 22%.",
-    image: ""
+    desc: "Certificate of Achievement (No: 007/QCC/SIM/VIII/2025) for dedication, innovation, and teamwork in continuous improvement.",
+    image: "assets/certs/simgroup_qcc_batch_2_winner.jpg"
   },
   {
     id: "cert_pcap_python",
@@ -486,11 +486,11 @@ const CERTIFICATIONS_ID = [
   },
   {
     id: "cert_qcc_2",
-    title: "Juara 2 QCC Batch 2 di SIMGROUP",
-    issuer_date: "SIMGROUP, April 2025",
+    title: "Juara 2 QCC Batch 2 (2024–2025) di SIMGROUP",
+    issuer_date: "SIMGROUP, Agustus 2025",
     icon: "star",
-    desc: "Proyek Peningkatan Gross Margin Survei Klien Transportation Technology Indonesia, Area JABODETABEK dari 20% menjadi 22%.",
-    image: ""
+    desc: "Certificate of Achievement (No: 007/QCC/SIM/VIII/2025) atas dedikasi, inovasi, dan peningkatan gross margin survei klien area JABODETABEK.",
+    image: "assets/certs/simgroup_qcc_batch_2_winner.jpg"
   },
   {
     id: "cert_pcap_python",
