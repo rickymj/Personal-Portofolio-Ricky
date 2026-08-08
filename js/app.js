@@ -334,6 +334,66 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAllData();
   renderAll();
 
+  // Theme Toggle Logic
+  const themeBtn = document.getElementById('themeToggleBtn');
+  const iconDark = document.getElementById('themeIconDark');
+  const iconLight = document.getElementById('themeIconLight');
+
+  function updateThemeIcon(isLight) {
+    if (isLight) {
+      iconDark.style.display = 'block';
+      iconLight.style.display = 'none';
+    } else {
+      iconDark.style.display = 'none';
+      iconLight.style.display = 'block';
+    }
+  }
+
+  const savedTheme = localStorage.getItem('rmj_theme');
+  if (savedTheme === 'light') {
+    document.documentElement.classList.replace('dark', 'light');
+    updateThemeIcon(true);
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+      const isLight = document.documentElement.classList.contains('light');
+      if (isLight) {
+        document.documentElement.classList.replace('light', 'dark');
+        localStorage.setItem('rmj_theme', 'dark');
+        updateThemeIcon(false);
+      } else {
+        document.documentElement.classList.replace('dark', 'light');
+        localStorage.setItem('rmj_theme', 'light');
+        updateThemeIcon(true);
+      }
+    });
+  }
+
+  // Scroll Spy Logic
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollPos = window.scrollY + 100;
+
+    sections.forEach(sec => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      if (scrollPos >= top && scrollPos < top + height) {
+        current = sec.getAttribute('id') || '';
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (current && link.getAttribute('href').includes(current)) {
+        link.classList.add('active');
+      }
+    });
+  });
+
   // CV Download Buttons - Guarantee file download on click
   const cvLinks = document.querySelectorAll('a[href*="Ricky_Muhammad_Jufrizal_CV.pdf"]');
   cvLinks.forEach(link => {

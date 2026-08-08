@@ -38,6 +38,26 @@
   --transition-base: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+html.light {
+  color-scheme: light;
+  --bg-black: #ffffff;
+  --bg-surface: #f9f9f9;
+  --bg-surface-2: #f0f0f0;
+  --bg-surface-3: #e5e5e5;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(255, 255, 255, 1);
+  
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --border-medium: rgba(0, 0, 0, 0.15);
+  --border-strong: rgba(0, 0, 0, 0.25);
+  --border-focus: #0070f3;
+
+  --text-primary: #111111;
+  --text-secondary: #4a4a4a;
+  --text-muted: #737373;
+  --text-inverse: #ffffff;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -78,6 +98,15 @@ body {
     linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+}
+
+html.light .ambient-bg {
+  background-image: 
+    radial-gradient(circle at 50% -20%, rgba(0, 112, 243, 0.15), transparent 45%),
+    radial-gradient(circle at 10% 40%, rgba(80, 227, 194, 0.1), transparent 35%),
+    radial-gradient(circle at 90% 80%, rgba(121, 40, 202, 0.12), transparent 40%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
 
 .container {
@@ -162,8 +191,19 @@ nav.vercel-nav {
   position: relative;
   transition: color var(--transition-fast);
 }
-.nav-links a:hover {
-  color: #ffffff;
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-primary);
+}
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: var(--accent-blue);
+  border-radius: var(--radius-full);
 }
 
 .nav-actions {
@@ -878,7 +918,9 @@ body.is-admin.edit-mode-active .exp-card {
 .proj-card:hover {
   border-color: var(--border-medium);
   background: var(--bg-card-hover);
-  transform: translateY(-3px);
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .proj-card .card-glow-bar {
@@ -1001,8 +1043,9 @@ body.is-admin.edit-mode-active .exp-card {
 .skill-group:hover {
   border-color: var(--border-medium);
   background: var(--bg-card-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .skill-group-header {
@@ -1073,6 +1116,9 @@ body.is-admin.edit-mode-active .exp-card {
 .edu-card:hover {
   border-color: var(--border-medium);
   background: var(--bg-card-hover);
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 /* ==========================================================================
@@ -1107,8 +1153,9 @@ body.is-admin.edit-mode-active .exp-card {
 .cert-card:hover {
   border-color: var(--border-medium);
   background: var(--bg-card-hover);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .cert-thumb-wrap {
