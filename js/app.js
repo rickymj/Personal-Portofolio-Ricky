@@ -6,11 +6,11 @@
 
 // Storage Keys
 const STORAGE_KEYS = {
-  experiences: 'rmj_portfolio_experiences_v8_en',
-  projects: 'rmj_portfolio_projects_v8_en',
-  skills: 'rmj_portfolio_skills_v8_en',
-  education: 'rmj_portfolio_education_v8_en',
-  certifications: 'rmj_portfolio_certifications_v8_en'
+  experiences: 'rmj_portfolio_experiences_v10_en',
+  projects: 'rmj_portfolio_projects_v10_en',
+  skills: 'rmj_portfolio_skills_v10_en',
+  education: 'rmj_portfolio_education_v10_en',
+  certifications: 'rmj_portfolio_certifications_v10_en'
 };
 
 // Global State
@@ -1107,6 +1107,62 @@ function exportDataJSON() {
   showToast('Data JSON lengkap berhasil diekspor!');
 }
 
+function exportDataJsFile() {
+  const exportProfile = {
+    ...(typeof DEFAULT_PROFILE !== 'undefined' ? DEFAULT_PROFILE : {}),
+    photo: (typeof ImageUploader !== 'undefined' && ImageUploader.getEffectivePhoto) ? ImageUploader.getEffectivePhoto() : 'assets/profile.jpg'
+  };
+
+  const fileContent = `/**
+ * Ricky Muhammad Jufrizal - Portfolio Data Store
+ * Generated on: ${new Date().toLocaleString()}
+ */
+
+const PROFILE_EN = ${JSON.stringify(exportProfile, null, 2)};
+
+const PROFILE_ID = ${JSON.stringify(typeof PROFILE_ID !== 'undefined' ? { ...PROFILE_ID, photo: exportProfile.photo } : exportProfile, null, 2)};
+
+const EXPERIENCES_EN = ${JSON.stringify(experiences, null, 2)};
+
+const EXPERIENCES_ID = ${JSON.stringify(experiences, null, 2)};
+
+const PROJECTS_EN = ${JSON.stringify(projects, null, 2)};
+
+const PROJECTS_ID = ${JSON.stringify(projects, null, 2)};
+
+const SKILLS_EN = ${JSON.stringify(skills, null, 2)};
+
+const SKILLS_ID = ${JSON.stringify(skills, null, 2)};
+
+const EDUCATION_EN = ${JSON.stringify(education, null, 2)};
+
+const EDUCATION_ID = ${JSON.stringify(education, null, 2)};
+
+const CERTIFICATIONS_EN = ${JSON.stringify(certifications, null, 2)};
+
+const CERTIFICATIONS_ID = ${JSON.stringify(certifications, null, 2)};
+
+const DEFAULT_PROFILE = PROFILE_EN;
+const DEFAULT_EXPERIENCES = EXPERIENCES_EN;
+const DEFAULT_PROJECTS = PROJECTS_EN;
+const DEFAULT_SKILLS = SKILLS_EN;
+const DEFAULT_EDUCATION = EDUCATION_EN;
+const DEFAULT_CERTIFICATIONS = CERTIFICATIONS_EN;
+`;
+
+  const blob = new Blob([fileContent], { type: 'application/javascript;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'data.js';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  showToast('File data.js berhasil diunduh! Gantikan file js/data.js di project lalu git push.');
+}
+
 function exportStandaloneHtml() {
   const blob = new Blob(['<!DOCTYPE html>\n<html lang="en" class="dark">\n' + document.documentElement.innerHTML + '\n</html>'], { type: 'text/html;charset=utf-8' });
   const url = URL.createObjectURL(blob);
@@ -1162,11 +1218,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Top Nav Buttons
   const btnAddNav = document.getElementById('btnOpenAddModal');
+  const btnExportDataJs = document.getElementById('btnExportDataJs');
   const btnExport = document.getElementById('btnExportHtml');
   const btnExportJSON = document.getElementById('btnExportJSON');
   const btnReset = document.getElementById('btnResetData');
 
   if (btnAddNav) btnAddNav.addEventListener('click', openAddExpModal);
+  if (btnExportDataJs) btnExportDataJs.addEventListener('click', exportDataJsFile);
   if (btnExport) btnExport.addEventListener('click', exportStandaloneHtml);
   if (btnExportJSON) btnExportJSON.addEventListener('click', exportDataJSON);
   if (btnReset) btnReset.addEventListener('click', resetToDefault);

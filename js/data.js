@@ -394,77 +394,151 @@ const EDUCATION_ID = [
 
 const CERTIFICATIONS_EN = [
   {
-    id: "cert_1",
-    title: "Business Intelligence Analyst in the Professional Academy Program 2024",
-    issuer_date: "2024",
-    icon: "check",
-    desc: ""
-  },
-  {
-    id: "cert_2",
-    title: "PCAP: Programming Essentials in Python 2024",
-    issuer_date: "2024",
-    icon: "check",
-    desc: ""
-  },
-  {
-    id: "cert_3",
-    title: "Robotic Process Automation Professional Academy 2023",
-    issuer_date: "2023",
-    icon: "check",
-    desc: ""
-  },
-  {
-    id: "cert_4",
-    title: "2nd Place Winner in QCC (Quality Control Circle) Batch 2 at SIMGROUP",
-    issuer_date: "April 2025",
+    id: "cert_qcc_3",
+    title: "Special Recognition Award for QCC Batch 3 at SIMGROUP",
+    issuer_date: "SIMGROUP, April 2026",
     icon: "star",
-    desc: "Improving Client Survey Project Gross Margin Transportation Technology Indonesia, JABODETABEK Area from 20% to 22%"
+    desc: "Increased MSM BPO client revenue (Sales Job) from an average of IDR 700M/month (Sep–Nov 2025) to IDR 2B/month.",
+    image: ""
   },
   {
-    id: "cert_5",
-    title: "Special Recognition Award for QCC (Quality Control Circle) Batch 3 at SIMGROUP",
-    issuer_date: "April 2026",
+    id: "cert_qcc_2",
+    title: "2nd Place Winner in QCC Batch 2 at SIMGROUP",
+    issuer_date: "SIMGROUP, April 2025",
     icon: "star",
-    desc: "Increased MSM BPO client revenue (Sales Job) from an average of IDR 700 million per month (September–November 2025 period) to IDR 2 billion per month"
+    desc: "Improved Client Survey Gross Margin (Transportation Technology Indonesia, JABODETABEK Area) from 20% to 22%.",
+    image: ""
+  },
+  {
+    id: "cert_genai_azure",
+    title: "Membangun Aplikasi Gen AI dengan Microsoft Azure",
+    issuer_date: "Dicoding Indonesia & Microsoft, 15 June 2026",
+    icon: "check",
+    desc: "Competency Certificate in Generative AI Application Development with Azure (No: 0LZ0Y00WQX65).",
+    image: "assets/certs/dicoding_genai_azure.jpg"
+  },
+  {
+    id: "cert_ds_fabric",
+    title: "Belajar Penerapan Data Science dengan Microsoft Fabric",
+    issuer_date: "Dicoding Indonesia & Microsoft, 15 June 2026",
+    icon: "check",
+    desc: "Competency Certificate in End-to-End Data Science implementation with Microsoft Fabric (No: MEPJ06RG6Z3V).",
+    image: "assets/certs/dicoding_data_science_fabric.jpg"
+  },
+  {
+    id: "cert_dasar_ds",
+    title: "Belajar Dasar Data Science",
+    issuer_date: "Dicoding Indonesia, 30 September 2024",
+    icon: "check",
+    desc: "Foundations of Data Science, Data Exploration, and Statistical Analysis (No: 0LZ04100RP65).",
+    image: "assets/certs/dicoding_dasar_data_science.jpg"
+  },
+  {
+    id: "cert_clickup",
+    title: "Certificate of Completion — Intermediate",
+    issuer_date: "ClickUp (Skilljar), June 2026",
+    icon: "check",
+    desc: "Intermediate Project Management & Workflow Orchestration (Cert No: bg2tcmdsi287).",
+    image: "assets/certs/clickup_intermediate.jpg"
+  },
+  {
+    id: "cert_uipath_pm",
+    title: "Diploma of Completion — Automation Project Manager",
+    issuer_date: "UiPath Academy, 08/10/2021",
+    icon: "check",
+    desc: "Robotic Process Automation Project Management & Implementation Life Cycle.",
+    image: "assets/certs/uipath_automation_pm.jpg"
+  },
+  {
+    id: "cert_bi_analyst",
+    title: "Business Intelligence Analyst",
+    issuer_date: "Digital Talent Scholarship (DTS) Kominfo, 2024",
+    icon: "check",
+    desc: "Data modeling, dashboard development with Power BI, and analytical reporting.",
+    image: ""
+  },
+  {
+    id: "cert_pcap_python",
+    title: "PCAP: Programming Essentials in Python",
+    issuer_date: "Cisco Networking Academy & OpenEDG Python Institute, 2024",
+    icon: "check",
+    desc: "Object-oriented programming, data structures, algorithms, and modular Python development.",
+    image: ""
   }
 ];
 
 const CERTIFICATIONS_ID = [
   {
-    id: "cert_1",
-    title: "Business Intelligence Analyst dalam Professional Academy Program",
-    issuer_date: "2024",
-    icon: "check",
-    desc: ""
+    id: "cert_qcc_3",
+    title: "Special Recognition Award QCC Batch 3 di SIMGROUP",
+    issuer_date: "SIMGROUP, April 2026",
+    icon: "star",
+    desc: "Meningkatkan Revenue Klien MSM BPO (Job Sales) dari Rata-rata Rp 700jt per Bulan (Periode September–November 2025) menjadi Rp 2M per Bulan.",
+    image: ""
   },
   {
-    id: "cert_2",
+    id: "cert_qcc_2",
+    title: "Juara 2 QCC Batch 2 di SIMGROUP",
+    issuer_date: "SIMGROUP, April 2025",
+    icon: "star",
+    desc: "Proyek Peningkatan Gross Margin Survei Klien Transportation Technology Indonesia, Area JABODETABEK dari 20% menjadi 22%.",
+    image: ""
+  },
+  {
+    id: "cert_genai_azure",
+    title: "Membangun Aplikasi Gen AI dengan Microsoft Azure",
+    issuer_date: "Dicoding Indonesia & Microsoft, 15 Juni 2026",
+    icon: "check",
+    desc: "Sertifikat Kompetensi Pengembangan Aplikasi Generative AI dengan Azure (No: 0LZ0Y00WQX65).",
+    image: "assets/certs/dicoding_genai_azure.jpg"
+  },
+  {
+    id: "cert_ds_fabric",
+    title: "Belajar Penerapan Data Science dengan Microsoft Fabric",
+    issuer_date: "Dicoding Indonesia & Microsoft, 15 Juni 2026",
+    icon: "check",
+    desc: "Sertifikat Kompetensi Implementasi Data Science End-to-End dengan Microsoft Fabric (No: MEPJ06RG6Z3V).",
+    image: "assets/certs/dicoding_data_science_fabric.jpg"
+  },
+  {
+    id: "cert_dasar_ds",
+    title: "Belajar Dasar Data Science",
+    issuer_date: "Dicoding Indonesia, 30 September 2024",
+    icon: "check",
+    desc: "Fondasi Data Science, Exploratory Data Analysis, dan Analisis Statistik (No: 0LZ04100RP65).",
+    image: "assets/certs/dicoding_dasar_data_science.jpg"
+  },
+  {
+    id: "cert_clickup",
+    title: "Certificate of Completion — Intermediate",
+    issuer_date: "ClickUp (Skilljar), Juni 2026",
+    icon: "check",
+    desc: "Manajemen Proyek & Orkestrasi Workflow Tingkat Menengah (No: bg2tcmdsi287).",
+    image: "assets/certs/clickup_intermediate.jpg"
+  },
+  {
+    id: "cert_uipath_pm",
+    title: "Diploma of Completion — Automation Project Manager",
+    issuer_date: "UiPath Academy, 08/10/2021",
+    icon: "check",
+    desc: "Manajemen Proyek Robotic Process Automation (RPA) dan Siklus Implementasi Sistem Otomasi.",
+    image: "assets/certs/uipath_automation_pm.jpg"
+  },
+  {
+    id: "cert_bi_analyst",
+    title: "Business Intelligence Analyst",
+    issuer_date: "Digital Talent Scholarship (DTS) Kominfo, 2024",
+    icon: "check",
+    desc: "Pemodelan data, pembuatan dashboard interaktif Power BI, dan pelaporan analitik bisnis.",
+    image: ""
+  },
+  {
+    id: "cert_pcap_python",
     title: "PCAP: Programming Essentials in Python",
-    issuer_date: "2024",
+    issuer_date: "Cisco Networking Academy & OpenEDG Python Institute, 2024",
     icon: "check",
-    desc: ""
-  },
-  {
-    id: "cert_3",
-    title: "Robotic Process Automation Professional Academy",
-    issuer_date: "2023",
-    icon: "check",
-    desc: ""
-  },
-  {
-    id: "cert_4",
-    title: "Juara 2 QCC (Quality Control Circle) Batch 2 di SIMGROUP",
-    issuer_date: "April 2025",
-    icon: "star",
-    desc: "Proyek Peningkatan Gross Margin Survei Klien Transportation Technology Indonesia, Area JABODETABEK dari 20% menjadi 22%"
-  },
-  {
-    id: "cert_5",
-    title: "Special Recognition Award QCC (Quality Control Circle) Batch 3 di SIMGROUP",
-    issuer_date: "April 2026",
-    icon: "star",
-    desc: "Meningkatkan Revenue Klien MSM BPO (Job Sales) dari Rata-rata Rp 700jt per Bulan (Periode September-November 2025) menjadi Rp 2M per Bulan"
+    desc: "Pemrograman berorientasi objek (OOP), struktur data, algoritma, dan pemrograman modular Python.",
+    image: ""
   }
 ];
 
