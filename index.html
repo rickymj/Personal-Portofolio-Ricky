@@ -35,8 +35,8 @@
     rel="stylesheet">
 
   <!-- Modular Stylesheets -->
-  <link rel="stylesheet" href="css/style.css?v=20260808">
-  <link rel="stylesheet" href="css/modal.css?v=20260808">
+  <link rel="stylesheet" href="css/style.css?v=20260808_pub">
+  <link rel="stylesheet" href="css/modal.css?v=20260808_pub">
 
 </head>
 
@@ -66,63 +66,26 @@
       </div>
 
       <div class="nav-actions">
-        <!-- Guest View: Admin Login Button -->
-        <button id="btnOpenLoginModal" class="btn btn-secondary btn-sm guest-only" title="Login sebagai Admin RickyMJ">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        <a href="https://wa.me/628192423137?text=Halo%20Ricky,%20saya%20tertarik%20dengan%20profil%20dan%20portofolio%20Anda."
+          target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm" title="Chat langsung via WhatsApp">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+            </path>
           </svg>
-          <span>Admin Login</span>
-        </button>
+          <span>WhatsApp Me</span>
+        </a>
 
-        <!-- Admin View Controls -->
-        <span id="adminBadge" class="admin-badge admin-only">
-          <span>👑 Admin</span>
-        </span>
-
-        <button id="btnOpenCloudDbModal" class="btn btn-secondary btn-sm admin-only"
-          title="Konfigurasi Database Cloud (Supabase / ImgBB)">
+        <a href="assets/Ricky_Muhammad_Jufrizal_CV.pdf" download="Ricky_Muhammad_Jufrizal_CV.pdf"
+          class="btn btn-secondary btn-sm" title="Unduh Curriculum Vitae">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-          </svg>
-          <span>Cloud DB</span>
-        </button>
-
-        <button id="btnOpenAddModal" class="btn btn-primary admin-only" title="Tambah Pengalaman Baru">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          <span>Add Experience</span>
-        </button>
-
-        <button id="btnExportDataJs" class="btn btn-secondary btn-sm admin-only"
-          title="Download file data.js untuk disimpan permanen di GitHub / Vercel">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-            <line x1="12" y1="18" x2="12" y2="12"></line>
-            <line x1="9" y1="15" x2="15" y2="15"></line>
-          </svg>
-          <span>Export data.js</span>
-        </button>
-
-        <button id="btnExportHtml" class="btn btn-secondary btn-sm admin-only"
-          title="Download updated HTML file for Vercel deploy">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          <span>Export HTML</span>
-        </button>
-
-        <button id="btnLogout" class="btn btn-danger btn-sm admin-only" title="Keluar ke mode Guest">
-          <span>Logout</span>
-        </button>
+          <span>CV (PDF)</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -139,61 +102,63 @@
 
           <h1 class="hero-name" id="heroName">Ricky Muhammad<br>Jufrizal</h1>
 
-          <p class="hero-title">
-            Account Manager with B2B client portfolio ownership, SLA discipline, and data-driven execution across
-            <b>telecommunications</b> and <b>BPO</b>. I turn account data into revenue actions, operational fixes,
-            and automation that helps teams move faster.
+          <p class="hero-title" id="heroTitle">
+            Experienced professional with over <b>3 years</b> in B2B account management, client operations, and service delivery across telecommunications and BPO industries. Skilled in combining business acumen with data analysis (<b>Python, SQL, Power BI</b>) and automation (<b>UiPath RPA</b>) to optimize operational efficiency and grow portfolio revenue.
           </p>
 
           <div class="hero-actions">
             <a href="https://wa.me/628192423137?text=Halo%20Ricky,%20saya%20tertarik%20dengan%20profil%20dan%20portofolio%20Anda."
-              target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-whatsapp" title="Chat via WhatsApp">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp" title="Chat langsung via WhatsApp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path
-                  d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z" />
+                  d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
               </svg>
               <span>WhatsApp Me</span>
             </a>
-            <a href="assets/Ricky_Muhammad_Jufrizal_CV.pdf" id="btnDownloadCV" class="btn btn-secondary"
-              download="Ricky_Muhammad_Jufrizal_CV.pdf" title="Download CV (PDF)">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+            <a href="assets/Ricky_Muhammad_Jufrizal_CV.pdf" download="Ricky_Muhammad_Jufrizal_CV.pdf"
+              class="btn btn-secondary" title="Unduh Curriculum Vitae (PDF)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
                 <line x1="12" y1="15" x2="12" y2="3"></line>
               </svg>
               <span>Download CV (PDF)</span>
             </a>
-            <a href="#projects" class="btn btn-secondary">View Projects</a>
           </div>
 
           <div class="contact-chips">
-            <a href="mailto:ricky.mjufrizal@gmail.com" class="contact-chip" title="Send Email">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
+            <a href="mailto:ricky.mjufrizal@gmail.com" class="contact-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
               </svg>
               <span>ricky.mjufrizal@gmail.com</span>
             </a>
-            <a href="https://wa.me/628192423137?text=Halo%20Ricky,%20saya%20tertarik%20dengan%20profil%20dan%20portofolio%20Anda."
-              target="_blank" rel="noopener noreferrer" class="contact-chip whatsapp-chip" title="Chat via WhatsApp">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+
+            <a href="https://wa.me/628192423137" target="_blank" rel="noopener noreferrer"
+              class="contact-chip whatsapp-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path
-                  d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086.159.058 1.011.477 1.184.564.173.087.289.13.332.203.043.072.043.419-.101.824z" />
+                  d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
               </svg>
               <span>+62 819-2423-137</span>
             </a>
-            <a href="https://www.linkedin.com/in/rickymj/" target="_blank" rel="noopener noreferrer"
-              class="contact-chip" title="LinkedIn Profile">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+            <a href="https://www.linkedin.com/in/rickymj/" target="_blank" rel="noopener" class="contact-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                 <rect x="2" y="9" width="4" height="12"></rect>
                 <circle cx="4" cy="4" r="2"></circle>
               </svg>
               <span>linkedin.com/in/rickymj</span>
             </a>
-            <a href="https://github.com/rickymj" target="_blank" rel="noopener noreferrer" class="contact-chip"
-              title="GitHub Profile">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+            <a href="https://github.com/rickymj" target="_blank" rel="noopener" class="contact-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path
                   d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
                 </path>
@@ -207,16 +172,6 @@
           <div class="photo-container">
             <div class="photo-card">
               <img src="assets/profile.jpg" alt="Ricky Muhammad Jufrizal" id="profileImg">
-
-              <!-- Admin Only: Change Photo Overlay -->
-              <div class="photo-overlay-btn" id="btnChangePhoto" title="Ganti Foto Profil">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                  <circle cx="12" cy="13" r="4"></circle>
-                </svg>
-                <span>Upload New Photo</span>
-              </div>
-
               <div class="photo-footer">
                 <span>EST. 2021</span>
                 <span>JAKARTA, ID</span>
@@ -249,15 +204,15 @@
       <div class="value-grid reveal">
         <div class="value-card">
           <span>B2B Account Ownership</span>
-          <p>Manage client portfolios, stakeholder alignment, and contract follow-through.</p>
+          <p>Manage client portfolios, stakeholder alignment, contract negotiation, and operational delivery.</p>
         </div>
         <div class="value-card">
           <span>SLA &amp; Revenue Discipline</span>
-          <p>Track risk, performance, and business outcomes with measurable targets.</p>
+          <p>Track business risk, pipeline conversion, and profit performance with measurable KPIs.</p>
         </div>
         <div class="value-card">
           <span>Analytics + Automation</span>
-          <p>Use SQL, Power BI, UiPath, and Power Automate to reduce manual work.</p>
+          <p>Deploy Python, SQL, Power BI, and UiPath RPA to turn raw operational data into bottom-line impact.</p>
         </div>
       </div>
     </div>
@@ -270,28 +225,11 @@
         <div class="section-title-wrap">
           <h2 class="section-title">Work Experience</h2>
         </div>
-
-        <div class="section-actions admin-only">
-          <button class="btn btn-secondary btn-sm btn-toggle-edit-mode" title="Aktifkan mode edit cepat">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 20h9"></path>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-            </svg>
-            <span class="edit-mode-label">Edit Mode</span>
-          </button>
-          <button class="btn btn-primary btn-sm" id="btnOpenAddExpModal" title="Tambah Pengalaman Baru">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            <span>Add Experience</span>
-          </button>
-        </div>
       </div>
 
       <!-- Dynamic Experience Container -->
       <div class="experience-timeline" id="experienceList">
-        <!-- Rendered by js/app.js -->
+        <!-- Pre-rendered statically for instant display -->
       </div>
     </div>
   </section>
@@ -303,28 +241,11 @@
         <div class="section-title-wrap">
           <h2 class="section-title">Projects &amp; Case Studies</h2>
         </div>
-
-        <div class="section-actions admin-only">
-          <button class="btn btn-secondary btn-sm btn-toggle-edit-mode" title="Aktifkan mode edit cepat">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 20h9"></path>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-            </svg>
-            <span class="edit-mode-label">Edit Mode</span>
-          </button>
-          <button class="btn btn-primary btn-sm" id="btnOpenAddProjectModal" title="Tambah Proyek Baru">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            <span>Add Project</span>
-          </button>
-        </div>
       </div>
 
       <!-- Dynamic Projects Container -->
       <div class="proj-grid" id="projectList">
-        <!-- Rendered by js/app.js -->
+        <!-- Pre-rendered statically for instant display -->
       </div>
     </div>
   </section>
@@ -336,28 +257,11 @@
         <div class="section-title-wrap">
           <h2 class="section-title">Skills &amp; Expertise</h2>
         </div>
-
-        <div class="section-actions admin-only">
-          <button class="btn btn-secondary btn-sm btn-toggle-edit-mode" title="Aktifkan mode edit cepat">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 20h9"></path>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-            </svg>
-            <span class="edit-mode-label">Edit Mode</span>
-          </button>
-          <button class="btn btn-primary btn-sm" id="btnOpenAddSkillModal" title="Tambah Skill Group Baru">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            <span>Add Skill Group</span>
-          </button>
-        </div>
       </div>
 
       <!-- Dynamic Skills Container -->
       <div class="skills-grid reveal" id="skillList">
-        <!-- Rendered by js/app.js -->
+        <!-- Pre-rendered statically for instant display -->
       </div>
     </div>
   </section>
@@ -369,29 +273,12 @@
         <div class="section-title-wrap">
           <h2 class="section-title">Education &amp; Honors</h2>
         </div>
-
-        <div class="section-actions admin-only">
-          <button class="btn btn-secondary btn-sm btn-toggle-edit-mode" title="Aktifkan mode edit cepat">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 20h9"></path>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-            </svg>
-            <span class="edit-mode-label">Edit Mode</span>
-          </button>
-          <button class="btn btn-primary btn-sm" id="btnOpenAddEduModal" title="Tambah Pendidikan / Sertifikasi Baru">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            <span>Add Education / Cert</span>
-          </button>
-        </div>
       </div>
 
       <!-- Formal Education Section -->
       <div class="edu-section-block reveal" style="margin-bottom: 36px;">
         <div class="edu-column" id="eduList">
-          <!-- Rendered by js/app.js -->
+          <!-- Pre-rendered statically for instant display -->
         </div>
       </div>
 
@@ -406,7 +293,7 @@
         </div>
 
         <div class="cert-grid" id="certList">
-          <!-- Rendered by js/app.js as interactive compact preview cards -->
+          <!-- Pre-rendered statically for instant display -->
         </div>
       </div>
     </div>
@@ -417,8 +304,7 @@
     <div class="container">
       <div class="footer-cta reveal">
         <h2>Need someone who can manage clients, read the numbers, and improve operations?</h2>
-        <p>Let's talk about how I can help your account, operations, or business team move faster with measurable
-          outcomes.</p>
+        <p>Let's talk about how I can help your account, operations, or business team move faster with measurable outcomes.</p>
       </div>
 
       <div class="footer-stamp reveal">
@@ -432,351 +318,13 @@
       </div>
 
       <div class="footer-copy">
-        <div class="admin-only"
-          style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:10px;">
-          <button id="btnResetData" class="btn btn-secondary btn-sm" style="font-size:11px; padding:4px 8px;">Reset Data
-            to Default</button>
-          <button id="btnExportJSON" class="btn btn-secondary btn-sm" style="font-size:11px; padding:4px 8px;">Backup
-            JSON</button>
-        </div>
-        <div>RICKY MUHAMMAD JUFRIZAL — PORTFOLIO VERCEL EDITION — 2026</div>
+        <div>RICKY MUHAMMAD JUFRIZAL — PORTFOLIO — 2026</div>
       </div>
     </div>
   </footer>
 
   <!-- ==========================================================================
-       MODAL 1: ADMIN LOGIN
-       ========================================================================== -->
-  <div class="modal-backdrop" id="loginModal">
-    <div class="modal-container modal-sm">
-      <div class="modal-header">
-        <h3 class="modal-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span>Admin Login</span>
-        </h3>
-        <button class="modal-close" id="btnCloseLoginModal" type="button">&times;</button>
-      </div>
-
-      <form id="loginForm">
-        <div class="modal-body">
-          <div id="loginErrorAlert" class="form-alert error">
-            Username atau password salah.
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="loginUsername">Username</label>
-            <input type="text" id="loginUsername" class="form-input" placeholder="Masukkan username admin"
-              autocomplete="username" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" class="form-input" placeholder="Masukkan password"
-              autocomplete="current-password" required>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btnCancelLogin">Batal</button>
-          <button type="submit" class="btn btn-primary">Masuk</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MODAL 2: ADD / EDIT EXPERIENCE
-       ========================================================================== -->
-  <div class="modal-backdrop" id="experienceModal">
-    <div class="modal-container">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalTitle">Add Experience</h3>
-        <button class="modal-close" id="btnCloseModal" type="button">&times;</button>
-      </div>
-
-      <form id="experienceForm">
-        <input type="hidden" id="formExpId" value="">
-
-        <div class="modal-body">
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="formCompany">Company / Organization *</label>
-              <input type="text" id="formCompany" class="form-input" placeholder="e.g. PT Swakarya Insan Mandiri"
-                required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="formOrgSuffix">Location / Suffix</label>
-              <input type="text" id="formOrgSuffix" class="form-input" placeholder="e.g. (SIMGROUP) — Jakarta">
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="formRole">Job Title / Role *</label>
-              <input type="text" id="formRole" class="form-input" placeholder="e.g. Account Manager" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="formType">Employment Type</label>
-              <select id="formType" class="form-select">
-                <option value="Full-time">Full-time</option>
-                <option value="Contract">Contract</option>
-                <option value="Part-time">Part-time</option>
-                <option value="Freelance">Freelance</option>
-                <option value="Internship">Internship</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="formDepartment">Department / Division (Optional)</label>
-              <input type="text" id="formDepartment" class="form-input" placeholder="e.g. LOB MSM BPO">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="formDate">Date Period *</label>
-              <input type="text" id="formDate" class="form-input" placeholder="e.g. Jan 2025 — Present" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="formBadges">Highlight Badges (Optional)</label>
-            <input type="text" id="formBadges" class="form-input"
-              placeholder="e.g. ★ 96–100% SLA sustained, ★ Revenue 700jt → 2M/mo">
-            <span class="form-hint">Pisahkan tiap badge dengan tanda koma ( , )</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="formBullets">Responsibilities &amp; Achievements *</label>
-            <textarea id="formBullets" class="form-textarea" rows="4"
-              placeholder="Tuliskan poin-poin pencapaian, 1 poin per baris..." required></textarea>
-            <span class="form-hint">Tuliskan tiap poin tanggung jawab/prestasi di baris baru (tekan Enter)</span>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btnCancelModal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="btnSaveExp">Save Experience</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MODAL: ADD / EDIT PROJECT
-       ========================================================================== -->
-  <div class="modal-backdrop" id="projectModal">
-    <div class="modal-container">
-      <div class="modal-header">
-        <h3 class="modal-title" id="projectModalTitle">Add Project</h3>
-        <button class="modal-close" id="btnCloseProjectModal" type="button">&times;</button>
-      </div>
-
-      <form id="projectForm">
-        <input type="hidden" id="formProjId" value="">
-
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="form-label" for="formProjTitle">Project Title *</label>
-            <input type="text" id="formProjTitle" class="form-input"
-              placeholder="e.g. Billing Collection Performance Analysis" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="formProjTags">Tags / Technologies *</label>
-            <input type="text" id="formProjTags" class="form-input" placeholder="e.g. Python, Pandas, SQL, Power BI"
-              required>
-            <span class="form-hint">Pisahkan tiap tag dengan tanda koma ( , )</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="formProjBullets">Key Highlights / Bullets *</label>
-            <textarea id="formProjBullets" class="form-textarea" rows="4"
-              placeholder="Tuliskan poin-poin pencapaian/deskripsi, 1 baris per poin..." required></textarea>
-            <span class="form-hint">Tuliskan tiap poin di baris baru (tekan Enter)</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Project Photo (Optional)</label>
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <input type="file" id="formProjImage" class="form-input" accept="image/png, image/jpeg, image/webp">
-              <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-size:12px; color:var(--text-muted); font-family:var(--font-mono);">OR URL:</span>
-                <input type="url" id="formProjImageUrl" class="form-input"
-                  placeholder="https://res.cloudinary.com/... atau https://i.ibb.co/..." style="font-size:12px;">
-              </div>
-            </div>
-            <input type="hidden" id="formProjImageData" value="">
-            <span class="form-hint">Upload file gambar atau tempel direct URL gambar (Cloudinary/ImgBB/Google
-              Drive/GitHub).</span>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="formProjImageCaption">Photo Caption (Optional)</label>
-            <input type="text" id="formProjImageCaption" class="form-input" placeholder="e.g. Live dashboard preview">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="formProjLink">Project / Demo Link (Optional)</label>
-            <input type="url" id="formProjLink" class="form-input" placeholder="https://...">
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btnCancelProjectModal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="btnSaveProject">Save Project</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MODAL: ADD / EDIT SKILL GROUP
-       ========================================================================== -->
-  <div class="modal-backdrop" id="skillModal">
-    <div class="modal-container">
-      <div class="modal-header">
-        <h3 class="modal-title" id="skillModalTitle">Add Skill Group</h3>
-        <button class="modal-close" id="btnCloseSkillModal" type="button">&times;</button>
-      </div>
-
-      <form id="skillForm">
-        <input type="hidden" id="formSkillId" value="">
-
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="form-label" for="formSkillCategory">Category Name *</label>
-            <input type="text" id="formSkillCategory" class="form-input"
-              placeholder="e.g. Data Analytics &amp; Programming" required>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="formSkillTags">Skills List *</label>
-            <textarea id="formSkillTags" class="form-textarea" rows="4"
-              placeholder="Python, SQL, R, Pandas, NumPy, scikit-learn..." required></textarea>
-            <span class="form-hint">Pisahkan tiap skill dengan tanda koma ( , )</span>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btnCancelSkillModal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="btnSaveSkill">Save Skill Group</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MODAL: ADD / EDIT EDUCATION & CERTIFICATIONS
-       ========================================================================== -->
-  <div class="modal-backdrop" id="eduModal">
-    <div class="modal-container">
-      <div class="modal-header">
-        <h3 class="modal-title" id="eduModalTitle">Add Education / Certification</h3>
-        <button class="modal-close" id="btnCloseEduModal" type="button">&times;</button>
-      </div>
-
-      <form id="eduForm">
-        <input type="hidden" id="formEduItemId" value="">
-
-        <div class="modal-body">
-          <div class="form-group">
-            <label class="form-label" for="formEduItemType">Entry Type</label>
-            <select id="formEduItemType" class="form-select">
-              <option value="education">Academic Degree / Education</option>
-              <option value="certification">Certification / Award / Competition</option>
-            </select>
-          </div>
-
-          <!-- Academic Fields -->
-          <div id="eduFieldsGroup">
-            <div class="form-group">
-              <label class="form-label" for="formEduInstitution">Institution / University *</label>
-              <input type="text" id="formEduInstitution" class="form-input"
-                placeholder="e.g. Telkom University, Bandung">
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="formEduPeriod">Period *</label>
-                <input type="text" id="formEduPeriod" class="form-input" placeholder="e.g. Aug 2013 — Sep 2021">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="formEduDegree">Degree / Major *</label>
-                <input type="text" id="formEduDegree" class="form-input"
-                  placeholder="e.g. Bachelor's Degree in Informatics Engineering">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="formEduThesis">Thesis / Research Title (Optional)</label>
-              <textarea id="formEduThesis" class="form-textarea" rows="2"
-                placeholder="e.g. Abstract Classification Based on..."></textarea>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="formEduHonor">Honors / Activities (Optional)</label>
-              <input type="text" id="formEduHonor" class="form-input"
-                placeholder="e.g. Awarded Staff of The Month in KOPMA...">
-            </div>
-          </div>
-
-          <!-- Certification Fields -->
-          <div id="certFieldsGroup" style="display:none;">
-            <div class="form-group">
-              <label class="form-label" for="formCertTitle">Certification / Award Title *</label>
-              <input type="text" id="formCertTitle" class="form-input" placeholder="e.g. Business Intelligence Analyst">
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="formCertIssuerDate">Issuer &amp; Year / Date *</label>
-                <input type="text" id="formCertIssuerDate" class="form-input"
-                  placeholder="e.g. Cisco Networking Academy, 2024">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="formCertIcon">Badge Icon</label>
-                <select id="formCertIcon" class="form-select">
-                  <option value="check">✓ Standard Certificate</option>
-                  <option value="star">★ Special Award / Competition</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="formCertDesc">Achievement Note / Description (Optional)</label>
-              <textarea id="formCertDesc" class="form-textarea" rows="2"
-                placeholder="e.g. Improved client survey gross margin from 20% to 22%"></textarea>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Certificate Image / Proof (Optional)</label>
-              <div style="display:flex; flex-direction:column; gap:8px;">
-                <input type="file" id="formCertImage" class="form-input" accept="image/png, image/jpeg, image/webp">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <span style="font-size:12px; color:var(--text-muted); font-family:var(--font-mono);">OR URL:</span>
-                  <input type="url" id="formCertImageUrl" class="form-input" placeholder="https://..."
-                    style="font-size:12px;">
-                </div>
-              </div>
-              <input type="hidden" id="formCertImageData" value="">
-              <span class="form-hint">Upload gambar sertifikat resmi atau tempel direct URL.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btnCancelEduModal">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="btnSaveEdu">Save Entry</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MODAL: VIEW CERTIFICATE / PROJECT FULL IMAGE
+       MODAL: VIEW CERTIFICATE / PROJECT FULL IMAGE (LIGHTBOX)
        ========================================================================== -->
   <div class="modal-backdrop" id="certImageModal">
     <div class="modal-container">
@@ -799,138 +347,17 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       MODAL 3: UPLOAD / CHANGE PROFILE PHOTO
-       ========================================================================== -->
-  <div class="modal-backdrop" id="photoModal">
-    <div class="modal-container modal-sm">
-      <div class="modal-header">
-        <h3 class="modal-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-            <circle cx="12" cy="13" r="4"></circle>
-          </svg>
-          <span>Upload Profile Photo</span>
-        </h3>
-        <button class="modal-close" id="btnClosePhotoModal" type="button">&times;</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="dropzone" id="photoDropzone">
-          <input type="file" id="photoFileInput" accept="image/png, image/jpeg, image/webp" style="display: none;">
-          <div class="dropzone-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="17 8 12 3 7 8"></polyline>
-              <line x1="12" y1="3" x2="12" y2="15"></line>
-            </svg>
-          </div>
-          <div class="dropzone-title">Click to upload or drag &amp; drop</div>
-          <div class="dropzone-subtitle">PNG, JPG, or WebP (Max. 8MB)</div>
-        </div>
-
-        <div style="margin-top:12px;">
-          <label class="form-label" style="font-size:11.5px;">Atau Tempel URL Foto Publik:</label>
-          <input type="url" id="photoUrlInput" class="form-input" placeholder="https://..." style="font-size:12px;">
-        </div>
-
-        <div class="image-preview-container" id="photoPreviewContainer">
-          <div class="image-preview-box">
-            <img id="photoPreviewImg" src="" alt="Preview Photo">
-          </div>
-          <span class="form-hint">Preview Foto Baru</span>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-sm" id="btnResetPhoto" style="margin-right:auto;">Reset to
-          Default</button>
-        <button type="button" class="btn btn-secondary" id="btnCancelPhoto">Cancel</button>
-        <button type="button" class="btn btn-primary" id="btnSavePhoto">Save Photo</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================================================
-       MODAL 4: CLOUD DATABASE & STORAGE CONFIGURATION
-       ========================================================================== -->
-  <div class="modal-backdrop" id="cloudDbModal">
-    <div class="modal-container">
-      <div class="modal-header">
-        <h3 class="modal-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2">
-            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-          </svg>
-          <span>Cloud Database &amp; Storage Settings</span>
-        </h3>
-        <button class="modal-close" id="btnCloseCloudDbModal" type="button">&times;</button>
-      </div>
-
-      <form id="cloudDbForm">
-        <div class="modal-body">
-          <div
-            style="padding:10px 14px; background:rgba(0,112,243,0.08); border:1px solid rgba(0,112,243,0.25); border-radius:var(--radius-sm); font-size:13px; color:var(--text-primary); line-height:1.5;">
-            <strong>Koneksi Database Cloud (Supabase / ImgBB)</strong><br>
-            <span style="color:var(--text-secondary); font-size:12px;">
-              Jika diisi, semua data pengalaman, proyek, dan file gambar akan tersimpan di cloud database sehingga
-              siapapun yang membuka web Anda dapat melihatnya secara permanen.
-            </span>
-          </div>
-
-          <div style="margin-top:12px; font-weight:600; font-size:13px; color:var(--accent-cyan);">1. Supabase (Database
-            &amp; File Storage)</div>
-
-          <div class="form-group">
-            <label class="form-label" for="cfgSupabaseUrl">Supabase Project URL</label>
-            <input type="url" id="cfgSupabaseUrl" class="form-input" placeholder="https://your-project.supabase.co">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="cfgSupabaseKey">Supabase Anon Public API Key</label>
-            <input type="password" id="cfgSupabaseKey" class="form-input"
-              placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="cfgStorageBucket">Storage Bucket Name</label>
-            <input type="text" id="cfgStorageBucket" class="form-input" placeholder="portfolio-images"
-              value="portfolio-images">
-          </div>
-
-          <div style="margin-top:12px; font-weight:600; font-size:13px; color:var(--accent-emerald);">2. Alternatif Free
-            Image Upload (ImgBB API)</div>
-
-          <div class="form-group">
-            <label class="form-label" for="cfgImgbbKey">ImgBB API Key (Optional)</label>
-            <input type="text" id="cfgImgbbKey" class="form-input" placeholder="API key dari api.imgbb.com">
-            <span class="form-hint">Dapatkan gratis di https://api.imgbb.com untuk upload gambar langsung tanpa
-              database.</span>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btnCancelCloudDb">Cancel</button>
-          <button type="submit" class="btn btn-primary" id="btnSaveCloudDb">Save Cloud Settings</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- Toast Element -->
   <div class="toast" id="toastMessage">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-emerald)" stroke-width="2.5">
       <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
-    <span id="toastText">Perubahan berhasil disimpan</span>
+    <span id="toastText">Action completed</span>
   </div>
 
   <!-- Modular Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/data.js?v=20260808"></script>
-  <script src="js/db.js?v=20260808"></script>
-  <script src="js/auth.js?v=20260808"></script>
-  <script src="js/uploader.js?v=20260808"></script>
-  <script src="js/app.js?v=20260808"></script>
+  <script src="js/data.js?v=20260808_pub"></script>
+  <script src="js/app.js?v=20260808_pub"></script>
 </body>
 
 </html>
