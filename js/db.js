@@ -71,7 +71,7 @@ const CloudDB = {
       try {
         const ext = file.name ? file.name.split('.').pop() : 'jpg';
         const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${ext}`;
-        
+
         const { data, error } = await this.client.storage
           .from(this.config.storageBucket || 'portfolio-images')
           .upload(fileName, file, {
