@@ -6,11 +6,11 @@
 
 // Storage Keys
 const STORAGE_KEYS = {
-  experiences: 'rmj_portfolio_experiences_v12_en',
-  projects: 'rmj_portfolio_projects_v12_en',
-  skills: 'rmj_portfolio_skills_v12_en',
-  education: 'rmj_portfolio_education_v12_en',
-  certifications: 'rmj_portfolio_certifications_v12_en'
+  experiences: 'rmj_portfolio_experiences_v13_en',
+  projects: 'rmj_portfolio_projects_v13_en',
+  skills: 'rmj_portfolio_skills_v13_en',
+  education: 'rmj_portfolio_education_v13_en',
+  certifications: 'rmj_portfolio_certifications_v13_en'
 };
 
 // Global State
@@ -478,55 +478,92 @@ function renderEducation() {
     }
   }
 
-  // 2. Certifications
+  // 2. Certifications & Honors Grid
   if (certContainer) {
     if (certifications.length === 0) {
       certContainer.innerHTML = `
-        <li style="padding: 20px 0; text-align: center; color: var(--text-muted);">
+        <div style="grid-column: 1 / -1; padding: 30px 0; text-align: center; color: var(--text-muted);">
           Belum ada sertifikasi atau penghargaan.
-        </li>
+        </div>
       `;
     } else {
       certContainer.innerHTML = certifications.map((cert, index) => {
         const actionButtons = Auth.isAdmin()
           ? `<div class="cert-item-actions">
-              ${index > 0 ? `<button class="action-btn" onclick="moveCertification(${index}, -1)" title="Pindah ke Atas">↑</button>` : ''}
-              ${index < certifications.length - 1 ? `<button class="action-btn" onclick="moveCertification(${index}, 1)" title="Pindah ke Bawah">↓</button>` : ''}
+              ${index > 0 ? `<button class="action-btn" onclick="moveCertification(${index}, -1)" title="Pindah ke Kiri/Atas">←</button>` : ''}
+              ${index < certifications.length - 1 ? `<button class="action-btn" onclick="moveCertification(${index}, 1)" title="Pindah ke Kanan/Bawah">→</button>` : ''}
               <button class="action-btn" onclick="editCertification('${cert.id}')" title="Edit Sertifikasi">✏️</button>
               <button class="action-btn delete-btn" onclick="deleteCertification('${cert.id}')" title="Hapus">🗑️</button>
             </div>`
           : '';
 
-        const iconSymbol = cert.icon === 'star' ? '★' : '✓';
-        const iconColor = cert.icon === 'star' ? 'var(--accent-amber)' : 'var(--accent-emerald)';
+        const isAward = cert.icon === 'star';
+        const iconSymbol = isAward ? '★' : '✓';
+        const iconColor = isAward ? 'var(--accent-amber)' : 'var(--accent-emerald)';
+        const tagLabel = isAward ? 'Award / Recognition' : 'Certified';
+
+        let mediaHeaderHtml = '';
+        if (cert.image) {
+          mediaHeaderHtml = `
+            <div class="cert-thumb-wrap" onclick="viewCertImage('${cert.id}')" title="Klik untuk zoom pratinjau sertifikat">
+              <img src="${escapeHtml(cert.image)}" alt="${escapeHtml(cert.title)}" class="cert-thumb-img" loading="lazy" />
+              <div class="cert-thumb-overlay">
+                <span class="cert-thumb-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <line x1="11" y1="8" x2="11" y2="14"></line>
+                    <line x1="8" y1="11" x2="14" y2="11"></line>
+                  </svg>
+                  <span>Preview Full</span>
+                </span>
+              </div>
+            </div>
+          `;
+        } else {
+          mediaHeaderHtml = `
+            <div class="cert-award-banner">
+              <div>
+                <span class="badge-pill amber" style="font-size:10.5px;">${tagLabel}</span>
+              </div>
+              <div class="cert-award-icon">${iconSymbol}</div>
+            </div>
+          `;
+        }
 
         const descHtml = cert.desc
-          ? `<div style="font-size:13px; margin-top:2px; color:var(--text-secondary);">${escapeHtml(cert.desc)}</div>`
-          : '';
+          ? `<div class="cert-desc-text">${escapeHtml(cert.desc)}</div>`
+          : '<div class="cert-desc-text" style="color:var(--text-muted); font-style:italic;">Verified competence & credential completion.</div>';
 
-        const imageBtnHtml = cert.image
-          ? `<div style="margin-top:8px;">
-               <button class="btn btn-secondary btn-sm" onclick="viewCertImage('${cert.id}')" style="font-size:11.5px; padding:3px 8px; gap:4px; border-color:var(--border-medium);">
-                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                   <circle cx="12" cy="12" r="3"></circle>
-                 </svg>
-                 <span>View Certificate</span>
-               </button>
-             </div>`
-          : '';
+        const actionBtnHtml = cert.image
+          ? `<button class="btn btn-secondary btn-sm" onclick="viewCertImage('${cert.id}')" style="font-size:11.5px; padding:4px 10px; gap:6px; border-color:var(--border-subtle);">
+               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                 <circle cx="12" cy="12" r="3"></circle>
+               </svg>
+               <span>View Certificate</span>
+             </button>`
+          : `<span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">Internal Achievement</span>`;
 
         return `
-          <li class="cert-item" data-id="${cert.id}">
+          <div class="cert-card reveal show" data-id="${cert.id}">
             ${actionButtons}
-            <span class="cert-icon" style="color:${iconColor};">${iconSymbol}</span>
-            <div style="flex:1; padding-right: 70px;">
-              <strong style="color:#fff;">${escapeHtml(cert.title)}</strong>
-              <div style="font-size:13px; color:var(--text-muted); margin-top:2px;">${escapeHtml(cert.issuer_date || '')}</div>
+            ${mediaHeaderHtml}
+            <div class="cert-body">
+              <div class="cert-meta-row">
+                <span class="cert-icon-tag" style="color:${iconColor};">
+                  <span>${iconSymbol}</span>
+                  <span style="color:var(--text-secondary);">${tagLabel}</span>
+                </span>
+                <span class="cert-date-text">${escapeHtml(cert.issuer_date || '')}</span>
+              </div>
+              <h4 class="cert-title-text">${escapeHtml(cert.title)}</h4>
               ${descHtml}
-              ${imageBtnHtml}
+              <div class="cert-footer-row">
+                ${actionBtnHtml}
+              </div>
             </div>
-          </li>
+          </div>
         `;
       }).join('');
     }
