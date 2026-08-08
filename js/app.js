@@ -6,11 +6,11 @@
 
 // Storage Keys
 const STORAGE_KEYS = {
-  experiences: 'rmj_portfolio_experiences_v15_en',
-  projects: 'rmj_portfolio_projects_v15_en',
-  skills: 'rmj_portfolio_skills_v15_en',
-  education: 'rmj_portfolio_education_v15_en',
-  certifications: 'rmj_portfolio_certifications_v15_en'
+  experiences: 'rmj_portfolio_experiences_v16_en',
+  projects: 'rmj_portfolio_projects_v16_en',
+  skills: 'rmj_portfolio_skills_v16_en',
+  education: 'rmj_portfolio_education_v16_en',
+  certifications: 'rmj_portfolio_certifications_v16_en'
 };
 
 // Global State
@@ -407,6 +407,19 @@ function renderSkills() {
   }
 
   container.innerHTML = skills.map((skillGroup, index) => {
+    const catLower = (skillGroup.category || '').toLowerCase();
+    let catIcon = '🔹';
+    if (catLower.includes('business') || catLower.includes('account') || catLower.includes('manajemen')) catIcon = '💼';
+    else if (catLower.includes('programming') || catLower.includes('bahasa')) catIcon = '💻';
+    else if (catLower.includes('library') || catLower.includes('libraries')) catIcon = '📚';
+    else if (catLower.includes('data science') || catLower.includes('analisis')) catIcon = '📊';
+    else if (catLower.includes('visualization') || catLower.includes('visualisasi')) catIcon = '📈';
+    else if (catLower.includes('automation') || catLower.includes('otomasi')) catIcon = '⚡';
+    else if (catLower.includes('tools') || catLower.includes('perangkat')) catIcon = '🛠️';
+
+    const count = (skillGroup.skills || []).length;
+    const isSpan2 = count >= 6 ? 'span-2' : '';
+
     const tagsHtml = (skillGroup.skills && skillGroup.skills.length > 0)
       ? `<div class="tags-flex">
           ${skillGroup.skills.map(s => `<span class="skill-tag">${escapeHtml(s)}</span>`).join('')}
@@ -423,9 +436,15 @@ function renderSkills() {
       : '';
 
     return `
-      <div class="skill-group reveal show" data-id="${skillGroup.id}">
+      <div class="skill-group ${isSpan2} reveal show" data-id="${skillGroup.id}">
         ${actionButtons}
-        <div class="skill-group-title">${escapeHtml(skillGroup.category)}</div>
+        <div class="skill-group-header">
+          <div class="skill-group-title">
+            <span>${catIcon}</span>
+            <span>${escapeHtml(skillGroup.category)}</span>
+          </div>
+          <span class="skill-count-badge">${count} skills</span>
+        </div>
         ${tagsHtml}
       </div>
     `;
