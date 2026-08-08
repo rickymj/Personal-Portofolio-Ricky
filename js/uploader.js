@@ -1,12 +1,13 @@
 /**
  * Image Uploader Module
- * Supports Drag & Drop, File Picker, Base64 Conversion, Live Preview, and LocalStorage Sync
+ * Supports Drag & Drop, File Picker, Direct Image URL, Base64/CloudDB Sync
  */
 
 const PHOTO_STORAGE_KEY = 'rmj_portfolio_custom_photo';
 
 const ImageUploader = {
   currentPhotoDataUrl: null,
+  currentFile: null,
 
   init() {
     this.loadSavedPhoto();
@@ -17,6 +18,7 @@ const ImageUploader = {
     const btnCancel = document.getElementById('btnCancelPhoto');
     const dropzone = document.getElementById('photoDropzone');
     const fileInput = document.getElementById('photoFileInput');
+    const urlInput = document.getElementById('photoUrlInput');
     const btnSave = document.getElementById('btnSavePhoto');
     const btnReset = document.getElementById('btnResetPhoto');
     const previewContainer = document.getElementById('photoPreviewContainer');
@@ -29,6 +31,8 @@ const ImageUploader = {
           return;
         }
         this.currentPhotoDataUrl = null;
+        this.currentFile = null;
+        if (urlInput) urlInput.value = '';
         if (previewContainer) previewContainer.style.display = 'none';
         if (modal) modal.classList.add('open');
       });
@@ -37,7 +41,9 @@ const ImageUploader = {
     const closePhotoModal = () => {
       if (modal) modal.classList.remove('open');
       this.currentPhotoDataUrl = null;
+      this.currentFile = null;
       if (fileInput) fileInput.value = '';
+      if (urlInput) urlInput.value = '';
     };
 
     if (btnClose) btnClose.addEventListener('click', closePhotoModal);
@@ -46,6 +52,19 @@ const ImageUploader = {
     if (modal) {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) closePhotoModal();
+      });
+    }
+
+    // Direct URL Input Listener
+    if (urlInput) {
+      urlInput.addEventListener('input', () => {
+        const val = urlInput.value.trim();
+        if (val) {
+          this.currentPhotoDataUrl = val;
+          this.currentFile = null;
+          if (previewImg) previewImg.src = val;
+          if (previewContainer) previewContainer.style.display = 'flex';
+        }
       });
     }
 
@@ -80,15 +99,37 @@ const ImageUploader = {
 
     // Save Photo
     if (btnSave) {
-      btnSave.addEventListener('click', () => {
-        if (!this.currentPhotoDataUrl) {
-          showToast('Pilih gambar terlebih dahulu!');
+      btnSave.addEventListener('click', async () => {
+        if (!this.currentPhotoDataUrl && !this.currentFile) {
+          showToast('Pilih gambar atau masukkan URL terlebih dahulu!');
           return;
         }
-        localStorage.setItem(PHOTO_STORAGE_KEY, this.currentPhotoDataUrl);
-        this.updateProfilePhoto(this.currentPhotoDataUrl);
-        closePhotoModal();
-        showToast('Foto profil berhasil diperbarui & disimpan!');
+
+        btnSave.disabled = true;
+        btnSave.textContent = 'Menyimpan...';
+
+        let finalUrl = this.currentPhotoDataUrl;
+
+        try {
+          if (this.currentFile && typeof CloudDB !== 'undefined' && (CloudDB.isCloudConnected() || CloudDB.config.imgbbApiKey)) {
+            showToast('Mengunggah foto ke cloud...');
+            finalUrl = await CloudDB.uploadImage(this.currentFile, 'profiles');
+          }
+
+          localStorage.setItem(PHOTO_STORAGE_KEY, finalUrl);
+          this.updateProfilePhoto(finalUrl);
+          closePhotoModal();
+          showToast('Foto profil berhasil diperbarui & disimpan!');
+        } catch (err) {
+          console.error('Error saving profile photo:', err);
+          showToast('Gagal menyimpan foto ke cloud, disimpan di browser');
+          localStorage.setItem(PHOTO_STORAGE_KEY, this.currentPhotoDataUrl || '');
+          this.updateProfilePhoto(this.currentPhotoDataUrl || '');
+          closePhotoModal();
+        } finally {
+          btnSave.disabled = false;
+          btnSave.textContent = 'Save Photo';
+        }
       });
     }
 
@@ -97,7 +138,7 @@ const ImageUploader = {
       btnReset.addEventListener('click', () => {
         if (confirm('Kembalikan foto profil ke foto default asli?')) {
           localStorage.removeItem(PHOTO_STORAGE_KEY);
-          this.updateProfilePhoto(DEFAULT_PROFILE.photo);
+          this.updateProfilePhoto(typeof DEFAULT_PROFILE !== 'undefined' ? DEFAULT_PROFILE.photo : 'assets/profile.jpg');
           closePhotoModal();
           showToast('Foto profil dikembalikan ke default');
         }
@@ -115,6 +156,8 @@ const ImageUploader = {
       alert('Ukuran file terlalu besar! Maksimal 8MB.');
       return;
     }
+
+    this.currentFile = file;
 
     const reader = new FileReader();
     reader.onload = (e) => {

@@ -42,16 +42,70 @@ function loadAllData() {
   skills = loadList(STORAGE_KEYS.skills, typeof DEFAULT_SKILLS !== 'undefined' ? DEFAULT_SKILLS : [], 'skills');
   education = loadList(STORAGE_KEYS.education, typeof DEFAULT_EDUCATION !== 'undefined' ? DEFAULT_EDUCATION : [], 'education');
   certifications = loadList(STORAGE_KEYS.certifications, typeof DEFAULT_CERTIFICATIONS !== 'undefined' ? DEFAULT_CERTIFICATIONS : [], 'certifications');
+
+  // Trigger background cloud sync if configured
+  syncFromCloud();
+}
+
+async function syncFromCloud() {
+  if (typeof CloudDB !== 'undefined' && CloudDB.isCloudConnected()) {
+    try {
+      const expData = await CloudDB.fetchCloudData('experiences');
+      if (expData && expData.length) {
+        experiences = expData;
+        localStorage.setItem(STORAGE_KEYS.experiences, JSON.stringify(experiences));
+      }
+      const projData = await CloudDB.fetchCloudData('projects');
+      if (projData && projData.length) {
+        projects = projData;
+        localStorage.setItem(STORAGE_KEYS.projects, JSON.stringify(projects));
+      }
+      const skillData = await CloudDB.fetchCloudData('skills');
+      if (skillData && skillData.length) {
+        skills = skillData;
+        localStorage.setItem(STORAGE_KEYS.skills, JSON.stringify(skills));
+      }
+      const eduData = await CloudDB.fetchCloudData('education');
+      if (eduData && eduData.length) {
+        education = eduData;
+        localStorage.setItem(STORAGE_KEYS.education, JSON.stringify(education));
+      }
+      const certData = await CloudDB.fetchCloudData('certifications');
+      if (certData && certData.length) {
+        certifications = certData;
+        localStorage.setItem(STORAGE_KEYS.certifications, JSON.stringify(certifications));
+      }
+      renderAll();
+    } catch (e) {
+      console.warn('Cloud sync background error:', e);
+    }
+  }
 }
 
 function saveData(key, data) {
   try {
     localStorage.setItem(key, JSON.stringify(data));
+
+    // Async push to Supabase Cloud DB if connected
+    if (typeof CloudDB !== 'undefined' && CloudDB.isCloudConnected()) {
+      let table = '';
+      if (key === STORAGE_KEYS.experiences) table = 'experiences';
+      else if (key === STORAGE_KEYS.projects) table = 'projects';
+      else if (key === STORAGE_KEYS.skills) table = 'skills';
+      else if (key === STORAGE_KEYS.education) table = 'education';
+      else if (key === STORAGE_KEYS.certifications) table = 'certifications';
+
+      if (table) {
+        CloudDB.saveCloudData(table, data).then(ok => {
+          if (ok) console.log(`[CloudDB] Synced ${table}`);
+        });
+      }
+    }
     return true;
   } catch (e) {
     console.error(`Error saving ${key} to localStorage:`, e);
     if (typeof showToast === 'function') {
-      showToast('Data gagal disimpan. Gambar terlalu besar untuk browser storage.');
+      showToast('Data gagal disimpan ke browser storage.');
     }
     return false;
   }
@@ -284,7 +338,7 @@ function renderProjects() {
 
     const imageHtml = proj.image
       ? `<figure class="proj-media">
-          <img src="${escapeHtml(proj.image)}" alt="${escapeHtml(proj.imageCaption || proj.title)} project preview">
+          <img src="${escapeHtml(proj.image)}" alt="${escapeHtml(proj.imageCaption || proj.title)} project preview" style="cursor:zoom-in;" onclick="openImageLightbox('${escapeHtml(proj.image)}', '${escapeHtml(proj.title)}')">
           ${proj.imageCaption ? `<figcaption>${escapeHtml(proj.imageCaption)}</figcaption>` : ''}
           ${linkHtml}
         </figure>`
@@ -311,6 +365,27 @@ function renderProjects() {
       </div>
     `;
   }).join('');
+}
+
+// Lightbox / Image Viewer Helpers
+async function viewCertImage(id) {
+  const cert = certifications.find(c => c.id === id);
+  if (!cert || !cert.image) return;
+  const src = await getCertImage(cert.image);
+  openImageLightbox(src, cert.title || 'Certificate Preview');
+}
+
+function openImageLightbox(src, title = 'Image Preview') {
+  const modal = document.getElementById('certImageModal');
+  const modalTitle = document.getElementById('certImageModalTitle');
+  const imgEl = document.getElementById('certImageModalImg');
+  if (imgEl && src) {
+    imgEl.src = src;
+  }
+  if (modalTitle && title) {
+    modalTitle.innerHTML = `<span>${escapeHtml(title)}</span>`;
+  }
+  if (modal) modal.classList.add('open');
 }
 
 // C. Render Skills
@@ -546,6 +621,9 @@ function openAddProjectModal() {
   document.getElementById('projectModalTitle').textContent = 'Add Project';
   document.getElementById('formProjId').value = '';
   if (projFormEl) projFormEl.reset();
+  const urlInput = document.getElementById('formProjImageUrl');
+  if (urlInput) urlInput.value = '';
+  document.getElementById('formProjImageData').value = '';
   if (projModalEl) projModalEl.classList.add('open');
   const title = document.getElementById('formProjTitle');
   if (title) title.focus();
@@ -562,6 +640,8 @@ function editProject(id) {
   document.getElementById('formProjTags').value = (proj.tags || []).join(', ');
   document.getElementById('formProjBullets').value = (proj.bullets || []).join('\n');
   document.getElementById('formProjImageData').value = proj.image || '';
+  const urlInput = document.getElementById('formProjImageUrl');
+  if (urlInput) urlInput.value = (proj.image && proj.image.startsWith('http')) ? proj.image : '';
   document.getElementById('formProjImage').value = '';
   document.getElementById('formProjImageCaption').value = proj.imageCaption || '';
   document.getElementById('formProjLink').value = proj.link || '';
@@ -680,6 +760,9 @@ function openAddEduModal(defaultType = 'education') {
   document.getElementById('formEduItemId').value = '';
   document.getElementById('formEduItemType').value = defaultType;
   if (eduFormEl) eduFormEl.reset();
+  const certUrlInput = document.getElementById('formCertImageUrl');
+  if (certUrlInput) certUrlInput.value = '';
+  document.getElementById('formCertImageData').value = '';
   document.getElementById('formEduItemType').value = defaultType;
   updateEduModalFields();
   if (eduModalEl) eduModalEl.classList.add('open');
@@ -743,6 +826,8 @@ function editCertification(id) {
   document.getElementById('formCertIcon').value = cert.icon || 'check';
   document.getElementById('formCertDesc').value = cert.desc || '';
   document.getElementById('formCertImageData').value = cert.image || '';
+  const certUrlInput = document.getElementById('formCertImageUrl');
+  if (certUrlInput) certUrlInput.value = (cert.image && cert.image.startsWith('http')) ? cert.image : '';
   document.getElementById('formCertImage').value = '';
 
   updateEduModalFields();
@@ -831,7 +916,8 @@ function initFormSubmissions() {
       const tagsRaw = document.getElementById('formProjTags').value.trim();
       const bulletsRaw = document.getElementById('formProjBullets').value.trim();
       const link = document.getElementById('formProjLink').value.trim();
-      const image = document.getElementById('formProjImageData').value.trim();
+      const urlInput = document.getElementById('formProjImageUrl');
+      const image = (urlInput && urlInput.value.trim()) || document.getElementById('formProjImageData').value.trim();
       const imageCaption = document.getElementById('formProjImageCaption').value.trim();
 
       const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
@@ -908,7 +994,8 @@ function initFormSubmissions() {
         const issuer_date = document.getElementById('formCertIssuerDate').value.trim();
         const icon = document.getElementById('formCertIcon').value;
         const desc = document.getElementById('formCertDesc').value.trim();
-        let image = document.getElementById('formCertImageData').value.trim();
+        const certUrlInput = document.getElementById('formCertImageUrl');
+        let image = (certUrlInput && certUrlInput.value.trim()) || document.getElementById('formCertImageData').value.trim();
 
         if (image.startsWith('data:')) {
           image = await setCertImage(id, image);
@@ -953,28 +1040,24 @@ function toggleEditMode() {
   const buttons = document.querySelectorAll('.btn-toggle-edit-mode');
 
   labels.forEach(lbl => {
-    lbl.textContent = isEditMode ? 'Done Editing' : 'Edit Mode';
+    lbl.textContent = isEditMode ? 'Exit Edit' : 'Edit Mode';
   });
 
   buttons.forEach(btn => {
     if (isEditMode) {
-      btn.classList.remove('btn-secondary');
       btn.classList.add('btn-primary');
+      btn.classList.remove('btn-secondary');
     } else {
-      btn.classList.remove('btn-primary');
       btn.classList.add('btn-secondary');
+      btn.classList.remove('btn-primary');
     }
   });
 
-  if (isEditMode) {
-    showToast('Mode Edit Aktif: Tombol edit & susun ulang ditampilkan di setiap highlight');
-  } else {
-    showToast('Mode Edit Dinonaktifkan');
-  }
+  showToast(isEditMode ? 'Mode Edit aktif' : 'Mode Edit nonaktif');
 }
 
 // ============================================================================
-// 6. RESET DATA & EXPORT
+// 6. SCROLL REVEAL & EXPORT HELPERS
 // ============================================================================
 
 async function resetToDefault() {
@@ -982,7 +1065,7 @@ async function resetToDefault() {
     showToast('Hanya Admin yang dapat me-reset data');
     return;
   }
-  if (confirm('Kembalikan seluruh data portofolio (pengalaman, proyek, skill, pendidikan) ke default awal?')) {
+  if (confirm('Kembalikan seluruh data portofolio ke default awal?')) {
     Object.values(STORAGE_KEYS).forEach(key => localStorage.removeItem(key));
     indexedDB.deleteDatabase(CERT_IMAGE_DB_NAME);
 
@@ -1038,7 +1121,6 @@ function exportStandaloneHtml() {
   showToast('File index.html berhasil diekspor!');
 }
 
-// Toast notification
 function showToast(msg) {
   const toast = document.getElementById('toastMessage');
   const text = document.getElementById('toastText');
@@ -1050,17 +1132,13 @@ function showToast(msg) {
   }, 3200);
 }
 
-// Scroll Reveal
 function applyRevealAnimations() {
-  const isPrint = /wkhtmltopdf/i.test(navigator.userAgent) || window.matchMedia('print').matches;
-  if (isPrint) {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('show'));
-  } else {
+  if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('show');
-          io.unobserve(e.target);
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          io.unobserve(entry.target);
         }
       });
     }, { threshold: 0.08 });
@@ -1072,34 +1150,9 @@ function applyRevealAnimations() {
 // 7. INITIALIZATION & EVENT BINDINGS
 // ============================================================================
 
-async function viewCertImage(id) {
-  const cert = certifications.find(c => c.id === id);
-  if (!cert || !cert.image) return;
-
-  const modal = document.getElementById('certImageModal');
-  const img = document.getElementById('certImageModalImg');
-  const title = document.getElementById('certImageModalTitle');
-
-  try {
-    const image = await getCertImage(cert.image);
-    if (!image) {
-      showToast('Gambar sertifikat belum tersimpan');
-      return;
-    }
-    if (img) {
-      img.src = image;
-      img.alt = cert.title || 'Certificate';
-    }
-    if (title) title.innerHTML = `<span>${escapeHtml(cert.title || 'Certificate Preview')}</span>`;
-    if (modal) modal.classList.add('open');
-  } catch (e) {
-    console.error('Error loading certificate image:', e);
-    showToast('Gambar sertifikat gagal dibuka');
-  }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   // Init Modules
+  if (typeof CloudDB !== 'undefined') CloudDB.init();
   if (typeof Auth !== 'undefined') Auth.init();
   if (typeof ImageUploader !== 'undefined') ImageUploader.init();
 
@@ -1118,6 +1171,53 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnExportJSON) btnExportJSON.addEventListener('click', exportDataJSON);
   if (btnReset) btnReset.addEventListener('click', resetToDefault);
 
+  // Cloud DB Modal
+  const btnCloudDb = document.getElementById('btnOpenCloudDbModal');
+  const cloudDbModal = document.getElementById('cloudDbModal');
+  const btnCloseCloudDb = document.getElementById('btnCloseCloudDbModal');
+  const btnCancelCloudDb = document.getElementById('btnCancelCloudDb');
+  const cloudDbForm = document.getElementById('cloudDbForm');
+
+  if (btnCloudDb && cloudDbModal) {
+    btnCloudDb.addEventListener('click', () => {
+      if (!Auth.isAdmin()) {
+        showToast('Hanya Admin yang dapat mengatur Cloud Database');
+        return;
+      }
+      if (typeof CloudDB !== 'undefined') {
+        const urlEl = document.getElementById('cfgSupabaseUrl');
+        const keyEl = document.getElementById('cfgSupabaseKey');
+        const bucketEl = document.getElementById('cfgStorageBucket');
+        const imgbbEl = document.getElementById('cfgImgbbKey');
+        if (urlEl) urlEl.value = CloudDB.config.supabaseUrl || '';
+        if (keyEl) keyEl.value = CloudDB.config.supabaseAnonKey || '';
+        if (bucketEl) bucketEl.value = CloudDB.config.storageBucket || 'portfolio-images';
+        if (imgbbEl) imgbbEl.value = CloudDB.config.imgbbApiKey || '';
+      }
+      cloudDbModal.classList.add('open');
+    });
+  }
+
+  if (btnCloseCloudDb) btnCloseCloudDb.addEventListener('click', () => cloudDbModal.classList.remove('open'));
+  if (btnCancelCloudDb) btnCancelCloudDb.addEventListener('click', () => cloudDbModal.classList.remove('open'));
+
+  if (cloudDbForm) {
+    cloudDbForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const supabaseUrl = document.getElementById('cfgSupabaseUrl').value.trim();
+      const supabaseAnonKey = document.getElementById('cfgSupabaseKey').value.trim();
+      const storageBucket = document.getElementById('cfgStorageBucket').value.trim() || 'portfolio-images';
+      const imgbbApiKey = document.getElementById('cfgImgbbKey').value.trim();
+
+      if (typeof CloudDB !== 'undefined') {
+        CloudDB.saveConfig({ supabaseUrl, supabaseAnonKey, storageBucket, imgbbApiKey });
+      }
+      cloudDbModal.classList.remove('open');
+      showToast('Konfigurasi Cloud DB disimpan! Memulai sinkronisasi...');
+      syncFromCloud();
+    });
+  }
+
   // Section Add Buttons
   const btnAddExp = document.getElementById('btnOpenAddExpModal');
   const btnAddProj = document.getElementById('btnOpenAddProjectModal');
@@ -1129,31 +1229,89 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnAddSkill) btnAddSkill.addEventListener('click', openAddSkillModal);
   if (btnAddEdu) btnAddEdu.addEventListener('click', () => openAddEduModal('education'));
 
+  // Project Image File Picker
   const projImageInput = document.getElementById('formProjImage');
   if (projImageInput) {
-    projImageInput.addEventListener('change', () => {
+    projImageInput.addEventListener('change', async () => {
       const file = projImageInput.files && projImageInput.files[0];
       if (!file) return;
       if (!file.type.startsWith('image/')) {
-        showToast('File harus berupa gambar');
+        showToast('File harus berupa gambar (JPG, PNG, WebP)');
         projImageInput.value = '';
         return;
       }
-      if (file.size > 2 * 1024 * 1024) {
-        showToast('Ukuran gambar maksimal 2MB');
-        projImageInput.value = '';
-        return;
+      if (typeof CloudDB !== 'undefined' && (CloudDB.isCloudConnected() || CloudDB.config.imgbbApiKey)) {
+        try {
+          showToast('Mengunggah gambar proyek ke cloud...');
+          const uploadedUrl = await CloudDB.uploadImage(file, 'projects');
+          document.getElementById('formProjImageData').value = uploadedUrl;
+          const urlInput = document.getElementById('formProjImageUrl');
+          if (urlInput) urlInput.value = uploadedUrl;
+          showToast('Gambar proyek berhasil diunggah ke cloud!');
+          return;
+        } catch (e) {
+          console.warn('Direct cloud upload failed, using local compress:', e);
+        }
       }
-      const reader = new FileReader();
-      reader.onload = () => {
-        document.getElementById('formProjImageData').value = reader.result;
+      try {
+        document.getElementById('formProjImageData').value = await compressImageFile(file, 1200, 0.76);
         showToast('Foto proyek siap disimpan');
-      };
-      reader.readAsDataURL(file);
+      } catch (e) {
+        showToast('Gagal memproses gambar');
+      }
     });
   }
 
-  // Section Edit Mode Toggle Buttons (Attach to all .btn-toggle-edit-mode)
+  // Cert Image File Picker
+  const certImageInput = document.getElementById('formCertImage');
+  if (certImageInput) {
+    certImageInput.addEventListener('change', async () => {
+      const file = certImageInput.files && certImageInput.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        showToast('File harus berupa gambar (JPG, PNG, WebP)');
+        certImageInput.value = '';
+        return;
+      }
+      if (typeof CloudDB !== 'undefined' && (CloudDB.isCloudConnected() || CloudDB.config.imgbbApiKey)) {
+        try {
+          showToast('Mengunggah gambar sertifikat ke cloud...');
+          const uploadedUrl = await CloudDB.uploadImage(file, 'certs');
+          document.getElementById('formCertImageData').value = uploadedUrl;
+          const urlInput = document.getElementById('formCertImageUrl');
+          if (urlInput) urlInput.value = uploadedUrl;
+          showToast('Gambar sertifikat berhasil diunggah ke cloud!');
+          return;
+        } catch (e) {
+          console.warn('Direct cloud upload failed, using local compress:', e);
+        }
+      }
+      try {
+        document.getElementById('formCertImageData').value = await compressImageFile(file, 1400, 0.78);
+        showToast('Foto sertifikat siap disimpan');
+      } catch (e) {
+        console.error('Error processing certificate image:', e);
+        showToast('Gambar sertifikat gagal diproses');
+        certImageInput.value = '';
+      }
+    });
+  }
+
+  // Download CV Toast Check
+  const btnDownloadCV = document.getElementById('btnDownloadCV');
+  if (btnDownloadCV) {
+    btnDownloadCV.addEventListener('click', () => {
+      fetch('assets/Ricky_Muhammad_Jufrizal_CV.pdf', { method: 'HEAD' })
+        .then(res => {
+          if (!res.ok) {
+            showToast('Catatan: Tempatkan file CV PDF di folder assets/Ricky_Muhammad_Jufrizal_CV.pdf');
+          }
+        })
+        .catch(() => {});
+    });
+  }
+
+  // Section Edit Mode Toggle Buttons
   document.querySelectorAll('.btn-toggle-edit-mode').forEach(btn => {
     btn.addEventListener('click', toggleEditMode);
   });
@@ -1173,43 +1331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cnBtn) cnBtn.addEventListener('click', closeAllModals);
   });
 
-  // Click outside backdrop to close
-  document.querySelectorAll('.modal-backdrop').forEach(modal => {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeAllModals();
-    });
-  });
-
-  // ESC key to close any open modal
-  // Cert image file input -> base64
-  const certImageInput = document.getElementById('formCertImage');
-  if (certImageInput) {
-    certImageInput.addEventListener('change', async () => {
-      const file = certImageInput.files && certImageInput.files[0];
-      if (!file) return;
-      if (!file.type.startsWith('image/')) {
-        showToast('File harus berupa gambar');
-        certImageInput.value = '';
-        return;
-      }
-      if (file.size > 8 * 1024 * 1024) {
-        showToast('Ukuran gambar sertifikat maksimal 8MB');
-        certImageInput.value = '';
-        return;
-      }
-
-      try {
-        document.getElementById('formCertImageData').value = await compressImageFile(file);
-        showToast('Foto sertifikat siap disimpan');
-      } catch (e) {
-        console.error('Error processing certificate image:', e);
-        showToast('Gambar sertifikat gagal diproses');
-        certImageInput.value = '';
-      }
-    });
-  }
-
-  // Cert image viewer modal
+  // Cert / Lightbox image viewer modal
   const certImgModal = document.getElementById('certImageModal');
   const btnCloseCertImg = document.getElementById('btnCloseCertImageModal');
   const btnCloseCertImgBot = document.getElementById('btnCloseCertImageModalBottom');
@@ -1218,6 +1340,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnCloseCertImgBot) btnCloseCertImgBot.addEventListener('click', closeCertImgModal);
   if (certImgModal) certImgModal.addEventListener('click', (e) => { if (e.target === certImgModal) closeCertImgModal(); });
 
+  // Click outside backdrop to close
+  document.querySelectorAll('.modal-backdrop').forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeAllModals();
+    });
+  });
+
+  // ESC key to close any open modal
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeAllModals();

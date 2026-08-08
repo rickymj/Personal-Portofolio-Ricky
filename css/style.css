@@ -408,6 +408,38 @@ header.hero {
   transform: translateY(-1px);
 }
 
+.whatsapp-chip:hover {
+  background: rgba(37, 211, 102, 0.12);
+  border-color: rgba(37, 211, 102, 0.4);
+  color: #25d366;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #000000;
+  border-color: #25d366;
+  font-weight: 600;
+}
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  border-color: #1ebe5d;
+  color: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+.proj-media img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+.proj-media img:hover {
+  border-color: var(--border-medium);
+  transform: scale(1.015);
+}
+
 /* Photo Frame with Vercel Gradient Border & Admin Uploader */
 .photo-container {
   position: relative;
