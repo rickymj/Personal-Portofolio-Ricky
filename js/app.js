@@ -41,11 +41,11 @@ function renderExperiences() {
     const badgesHtml = (exp.badges && exp.badges.length > 0)
       ? `<div class="exp-badges">
           ${exp.badges.map(b => {
-            let colorClass = '';
-            if (b.includes('SLA') || b.includes('Gross Margin')) colorClass = 'emerald';
-            if (b.includes('Revenue') || b.includes('IDR 2B') || b.includes('Award')) colorClass = 'amber';
-            return `<span class="badge-pill ${colorClass}">${escapeHtml(b)}</span>`;
-          }).join('')}
+        let colorClass = '';
+        if (b.includes('SLA') || b.includes('Gross Margin')) colorClass = 'emerald';
+        if (b.includes('Revenue') || b.includes('IDR 2B') || b.includes('Award')) colorClass = 'amber';
+        return `<span class="badge-pill ${colorClass}">${escapeHtml(b)}</span>`;
+      }).join('')}
          </div>`
       : '';
 
@@ -98,23 +98,23 @@ function renderProjects() {
     const bulletsHtml = (proj.bullets && proj.bullets.length > 0)
       ? `<ul class="proj-bullets">
           ${proj.bullets.map(b => {
-            const colonIdx = b.indexOf(':');
-            if (colonIdx > 0 && colonIdx < 35) {
-              const prefix = b.substring(0, colonIdx).trim();
-              const content = b.substring(colonIdx + 1);
-              const pLower = prefix.toLowerCase();
-              let badgeClass = 'proj-step-label';
-              if (pLower.includes('impact') || pLower.includes('hasil') || pLower.includes('dampak') || pLower.includes('numbers')) {
-                badgeClass += ' label-impact';
-              } else if (pLower.includes('data') || pLower.includes('approach') || pLower.includes('pendekatan') || pLower.includes('aksi') || pLower.includes('action')) {
-                badgeClass += ' label-approach';
-              } else if (pLower.includes('problem') || pLower.includes('masalah') || pLower.includes('konteks') || pLower.includes('context')) {
-                badgeClass += ' label-problem';
-              }
-              return `<li><span class="${badgeClass}">${escapeHtml(prefix)}</span>${escapeHtml(content)}</li>`;
-            }
-            return `<li>${escapeHtml(b)}</li>`;
-          }).join('')}
+        const colonIdx = b.indexOf(':');
+        if (colonIdx > 0 && colonIdx < 35) {
+          const prefix = b.substring(0, colonIdx).trim();
+          const content = b.substring(colonIdx + 1);
+          const pLower = prefix.toLowerCase();
+          let badgeClass = 'proj-step-label';
+          if (pLower.includes('impact') || pLower.includes('hasil') || pLower.includes('dampak') || pLower.includes('numbers')) {
+            badgeClass += ' label-impact';
+          } else if (pLower.includes('data') || pLower.includes('approach') || pLower.includes('pendekatan') || pLower.includes('aksi') || pLower.includes('action')) {
+            badgeClass += ' label-approach';
+          } else if (pLower.includes('problem') || pLower.includes('masalah') || pLower.includes('konteks') || pLower.includes('context')) {
+            badgeClass += ' label-problem';
+          }
+          return `<li><span class="${badgeClass}">${escapeHtml(prefix)}</span>${escapeHtml(content)}</li>`;
+        }
+        return `<li>${escapeHtml(b)}</li>`;
+      }).join('')}
          </ul>`
       : '';
 
@@ -340,6 +340,27 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAllData();
   renderAll();
 
+  // CV Download Buttons - Guarantee file download on click
+  const cvLinks = document.querySelectorAll('a[href*="Ricky_Muhammad_Jufrizal_CV.pdf"]');
+  cvLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      // If file is missing, show helpful toast instead of broken page
+      fetch(link.getAttribute('href'), { method: 'HEAD' })
+        .then(res => {
+          if (!res.ok) {
+            e.preventDefault();
+            showToast('File CV belum tersedia. Silakan hubungi via WhatsApp.');
+          } else {
+            showToast('CV sedang diunduh...');
+          }
+        })
+        .catch(() => {
+          e.preventDefault();
+          showToast('File CV belum tersedia. Silakan hubungi via WhatsApp.');
+        });
+    });
+  });
+
   // Lightbox Modal Close Listeners
   const btnCloseCertTop = document.getElementById('btnCloseCertImageModal');
   const btnCloseCertBottom = document.getElementById('btnCloseCertImageModalBottom');
@@ -358,3 +379,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeImageLightbox();
   });
 });
+
+// Toast notification helper
+function showToast(msg) {
+  const toast = document.getElementById('toastMessage');
+  const text = document.getElementById('toastText');
+  if (!toast || !text) return;
+  text.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3200);
+}
