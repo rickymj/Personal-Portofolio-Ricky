@@ -410,6 +410,30 @@ const CERTIFICATIONS_EN = [
     image: ""
   },
   {
+    id: "cert_pcap_python",
+    title: "PCAP: Programming Essentials in Python",
+    issuer_date: "Cisco Networking Academy & OpenEDG Python Institute, 23 Mar 2024",
+    icon: "check",
+    desc: "Comprehensive certification covering OOP, data structures, algorithms, and modular Python programming.",
+    image: "assets/certs/cisco_pcap_python_2024.jpg"
+  },
+  {
+    id: "cert_bi_analyst",
+    title: "Business Intelligence Analyst — Professional Academy",
+    issuer_date: "Kominfo Digital Talent Scholarship & BINAR, May 2023",
+    icon: "check",
+    desc: "78 Hours Professional Training in Data Modeling, Power BI Dashboarding, and Business Analytics (No: 1985601840-119/PROA/BLSDM.Kominfo/2023).",
+    image: "assets/certs/kominfo_bi_analyst_2023.jpg"
+  },
+  {
+    id: "cert_rpa_kominfo",
+    title: "Robotic Process Automation — Professional Academy",
+    issuer_date: "Kominfo Digital Talent Scholarship & Train4Best, Dec 2023",
+    icon: "check",
+    desc: "126 Hours Comprehensive RPA Training and Automated Workflow Deployment (No: 1987048840-83/PROA/BLSDM.Kominfo/2023).",
+    image: "assets/certs/kominfo_rpa_proa_2023.jpg"
+  },
+  {
     id: "cert_genai_azure",
     title: "Membangun Aplikasi Gen AI dengan Microsoft Azure",
     issuer_date: "Dicoding Indonesia & Microsoft, 15 June 2026",
@@ -448,22 +472,6 @@ const CERTIFICATIONS_EN = [
     icon: "check",
     desc: "Robotic Process Automation Project Management & Implementation Life Cycle.",
     image: "assets/certs/uipath_automation_pm.jpg"
-  },
-  {
-    id: "cert_bi_analyst",
-    title: "Business Intelligence Analyst",
-    issuer_date: "Digital Talent Scholarship (DTS) Kominfo, 2024",
-    icon: "check",
-    desc: "Data modeling, dashboard development with Power BI, and analytical reporting.",
-    image: ""
-  },
-  {
-    id: "cert_pcap_python",
-    title: "PCAP: Programming Essentials in Python",
-    issuer_date: "Cisco Networking Academy & OpenEDG Python Institute, 2024",
-    icon: "check",
-    desc: "Object-oriented programming, data structures, algorithms, and modular Python development.",
-    image: ""
   }
 ];
 
@@ -483,6 +491,30 @@ const CERTIFICATIONS_ID = [
     icon: "star",
     desc: "Proyek Peningkatan Gross Margin Survei Klien Transportation Technology Indonesia, Area JABODETABEK dari 20% menjadi 22%.",
     image: ""
+  },
+  {
+    id: "cert_pcap_python",
+    title: "PCAP: Programming Essentials in Python",
+    issuer_date: "Cisco Networking Academy & OpenEDG Python Institute, 23 Mar 2024",
+    icon: "check",
+    desc: "Pemrograman berorientasi objek (OOP), struktur data, algoritma, dan pemrograman modular Python.",
+    image: "assets/certs/cisco_pcap_python_2024.jpg"
+  },
+  {
+    id: "cert_bi_analyst",
+    title: "Business Intelligence Analyst — Professional Academy",
+    issuer_date: "Kominfo Digital Talent Scholarship & BINAR, Mei 2023",
+    icon: "check",
+    desc: "Pelatihan 78 Jam Pelatihan dalam Pemodelan Data, Dashboarding Power BI, dan Analisis Bisnis (No: 1985601840-119/PROA/BLSDM.Kominfo/2023).",
+    image: "assets/certs/kominfo_bi_analyst_2023.jpg"
+  },
+  {
+    id: "cert_rpa_kominfo",
+    title: "Robotic Process Automation — Professional Academy",
+    issuer_date: "Kominfo Digital Talent Scholarship & Train4Best, Des 2023",
+    icon: "check",
+    desc: "Pelatihan Komprehensif 126 Jam Pelatihan Implementasi dan Manajemen Proyek RPA (No: 1987048840-83/PROA/BLSDM.Kominfo/2023).",
+    image: "assets/certs/kominfo_rpa_proa_2023.jpg"
   },
   {
     id: "cert_genai_azure",
@@ -523,22 +555,6 @@ const CERTIFICATIONS_ID = [
     icon: "check",
     desc: "Manajemen Proyek Robotic Process Automation (RPA) dan Siklus Implementasi Sistem Otomasi.",
     image: "assets/certs/uipath_automation_pm.jpg"
-  },
-  {
-    id: "cert_bi_analyst",
-    title: "Business Intelligence Analyst",
-    issuer_date: "Digital Talent Scholarship (DTS) Kominfo, 2024",
-    icon: "check",
-    desc: "Pemodelan data, pembuatan dashboard interaktif Power BI, dan pelaporan analitik bisnis.",
-    image: ""
-  },
-  {
-    id: "cert_pcap_python",
-    title: "PCAP: Programming Essentials in Python",
-    issuer_date: "Cisco Networking Academy & OpenEDG Python Institute, 2024",
-    icon: "check",
-    desc: "Pemrograman berorientasi objek (OOP), struktur data, algoritma, dan pemrograman modular Python.",
-    image: ""
   }
 ];
 
