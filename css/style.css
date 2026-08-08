@@ -1502,3 +1502,11 @@ footer {
     transition: none !important;
   }
 }
+
+/* Light Mode Fixes */
+html.light nav.vercel-nav { background: rgba(255, 255, 255, 0.85); }
+html.light .hero-name { background: linear-gradient(180deg, #111111 0%, #777777 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+html.light .vercel-triangle, html.light .btn-secondary:hover, html.light .btn-danger:hover, html.light .hero-title b, html.light .value-card span, html.light .contact-chip:hover, html.light .section-title, html.light .exp-company, html.light .action-btn:hover, html.light .proj-title, html.light .skill-tag:hover, html.light .cert-title-text, html.light .footer-cta h2, html.light .toast { color: var(--text-primary); }
+html.light .toast { background: #ffffff; }
+html.light .btn-secondary:hover, html.light .action-btn:hover { background: rgba(0, 0, 0, 0.08); border-color: rgba(0, 0, 0, 0.2); }
+html.light .contact-chip:hover { background: rgba(0, 0, 0, 0.05); border-color: rgba(0, 0, 0, 0.15); }
