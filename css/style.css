@@ -1279,6 +1279,139 @@ footer {
 }
 
 /* ==========================================================================
+   CASE STUDY STORYTELLING LABELS
+   ========================================================================== */
+.proj-bullets li {
+  margin-bottom: 8px;
+  line-height: 1.55;
+  font-size: 13.5px;
+}
+
+.proj-step-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.proj-step-label.label-problem {
+  background: rgba(255, 0, 128, 0.08);
+  border-color: rgba(255, 0, 128, 0.25);
+  color: #ff75c3;
+}
+
+.proj-step-label.label-approach {
+  background: rgba(0, 112, 243, 0.08);
+  border-color: rgba(0, 112, 243, 0.25);
+  color: #70b5ff;
+}
+
+.proj-step-label.label-impact {
+  background: rgba(0, 223, 143, 0.08);
+  border-color: rgba(0, 223, 143, 0.3);
+  color: var(--accent-emerald);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS & TOUCH OPTIMIZATIONS (< 640px)
+   ========================================================================== */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  section {
+    padding: 42px 0;
+  }
+
+  .hero-name {
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  .hero-title {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 14px;
+    justify-content: center;
+  }
+
+  .contact-chips {
+    gap: 8px;
+  }
+
+  .contact-chip {
+    font-size: 12px;
+    padding: 6px 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .value-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .value-card {
+    padding: 14px 16px;
+  }
+
+  .proj-card {
+    padding: 18px 16px;
+  }
+
+  .proj-title {
+    font-size: 16.5px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .cert-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .cert-body {
+    padding: 14px 16px;
+  }
+
+  .footer-stamp {
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .footer-stamp span[style*="border-medium"] {
+    display: none;
+  }
+}
+
+/* ==========================================================================
    TOAST NOTIFICATION & REVEAL ANIMATIONS
    ========================================================================== */
 .toast {

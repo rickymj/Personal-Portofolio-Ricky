@@ -6,11 +6,11 @@
 
 // Storage Keys
 const STORAGE_KEYS = {
-  experiences: 'rmj_portfolio_experiences_v25_en',
-  projects: 'rmj_portfolio_projects_v25_en',
-  skills: 'rmj_portfolio_skills_v25_en',
-  education: 'rmj_portfolio_education_v25_en',
-  certifications: 'rmj_portfolio_certifications_v25_en'
+  experiences: 'rmj_portfolio_experiences_v30_en',
+  projects: 'rmj_portfolio_projects_v30_en',
+  skills: 'rmj_portfolio_skills_v30_en',
+  education: 'rmj_portfolio_education_v30_en',
+  certifications: 'rmj_portfolio_certifications_v30_en'
 };
 
 // Global State
@@ -323,7 +323,24 @@ function renderProjects() {
 
     const bulletsHtml = (proj.bullets && proj.bullets.length > 0)
       ? `<ul class="proj-bullets">
-          ${proj.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+          ${proj.bullets.map(b => {
+            const colonIdx = b.indexOf(':');
+            if (colonIdx > 0 && colonIdx < 35) {
+              const prefix = b.substring(0, colonIdx).trim();
+              const content = b.substring(colonIdx + 1);
+              const pLower = prefix.toLowerCase();
+              let badgeClass = 'proj-step-label';
+              if (pLower.includes('impact') || pLower.includes('hasil') || pLower.includes('dampak') || pLower.includes('numbers')) {
+                badgeClass += ' label-impact';
+              } else if (pLower.includes('data') || pLower.includes('approach') || pLower.includes('pendekatan') || pLower.includes('aksi') || pLower.includes('action')) {
+                badgeClass += ' label-approach';
+              } else if (pLower.includes('problem') || pLower.includes('masalah') || pLower.includes('konteks') || pLower.includes('context')) {
+                badgeClass += ' label-problem';
+              }
+              return `<li><span class="${badgeClass}">${escapeHtml(prefix)}</span>${escapeHtml(content)}</li>`;
+            }
+            return `<li>${escapeHtml(b)}</li>`;
+          }).join('')}
          </ul>`
       : '';
 

@@ -202,171 +202,223 @@ const EXPERIENCES_ID = [
 
 const PROJECTS_EN = [
   {
-    id: "proj_1",
-    title: "Indonesian Journal Abstract Classification",
-    tags: ["Python", "Naive Bayes", "Natural Language Processing", "POS Tagging"],
+    id: "proj_qcc3",
+    title: "BPO Sales Revenue Turnaround & Optimization (QCC Batch 3 Award)",
+    tags: ["Revenue Growth", "Root Cause Analysis", "Power BI", "SLA Monitoring", "Sales Operations"],
     bullets: [
-      "Developed a machine learning model to classify Indonesian-language journal abstracts using the Naive Bayes algorithm and Indonesian POS Tagging features.",
-      "Performed text preprocessing, feature extraction, model training, and performance evaluation using Python.",
-      "Evaluated model performance using accuracy, precision, recall, F1-score, and confusion matrix.",
-      "Achieved an accuracy of 96% using a dataset containing 465 journal abstracts."
+      "Context & Problem: MSM BPO (Job Sales) client revenue was stagnant at an average of IDR 700M/month (September–November 2025), caused by unmonitored sales bottlenecks, high lead drop-offs, and delayed pipeline turnaround.",
+      "Data & Approach: Conducted root cause analysis on the complete sales funnel, built automated daily pipeline tracking dashboards in Power BI, and identified specific conversion drop-off points across regional sales agents.",
+      "Operational Action: Restructured SLA protocols, realigned target incentives for high-conversion sales jobs, and established rapid-response communication between recruitment and client operations.",
+      "Impact & Numbers: Scaled monthly client revenue from IDR 700M to IDR 2.0B/month (285% growth), winning the Special Recognition Award in QCC Batch 3 at SIMGROUP (April 2026)."
     ]
   },
   {
-    id: "proj_2",
-    title: "TPISurvey_BOT",
-    tags: ["Python", "Telegram Bot API", "Google Sheets API"],
+    id: "proj_qcc2",
+    title: "Survey Operation Gross Margin Turnaround (QCC Batch 2 Award)",
+    tags: ["Gross Margin Optimization", "Cost Analysis", "Field Operations", "Unit Economics"],
     bullets: [
-      "Developed a Telegram Bot to retrieve and present information from a database containing more than 40,000 records.",
-      "Implemented query logic and Google Maps integration to support field-surveyor activities.",
-      "Improved accessibility of survey information and reduced manual data-search activities."
+      "Context & Problem: Client survey operations across JABODETABEK area suffered from compressed profit margins (20%), driven by high field travel variance and uncoordinated surveyor dispatching.",
+      "Data & Approach: Analyzed survey cost components, travel radius, surveyor efficiency, and unit economics to uncover high-variance cost drivers.",
+      "Operational Action: Implemented strict operational zoning, reorganized field routes, and improved surveyor verification turnaround.",
+      "Impact & Numbers: Increased Gross Margin from 20% to 22%, directly boosting company net profit and earning 2nd Place Winner in QCC Batch 2 SIMGROUP (August 2025)."
     ]
   },
   {
-    id: "proj_3",
-    title: "CheckOrder_BOT",
-    tags: ["Python", "Telegram Bot API", "Google Sheets API"],
+    id: "proj_billing",
+    title: "Billing Collection Performance & Risk Segmentation Analysis",
+    tags: ["Python", "Pandas", "SQL", "Power BI", "Risk Modeling"],
     bullets: [
-      "Developed a Telegram Bot integrated with Google Sheets to provide updated order-tracking information.",
-      "Automated order-status retrieval based on order numbers, eliminating repetitive manual checking activities.",
-      "Reduced manual tracking workload by up to 100%."
+      "Context & Problem: Increasing volume of overdue invoices and unprioritized debtor queues created extended Days Sales Outstanding (DSO) and cash collection delays.",
+      "Data & Approach: Cleaned, transformed, and queried historical billing data using SQL and Python (Pandas). Segmented debtors based on payment behaviors, outstanding balance, aging period, and responsiveness.",
+      "Operational Action: Designed an executive Power BI dashboard with automated risk scoring to prioritize high-value overdue accounts for the collection team.",
+      "Impact & Numbers: Enabled targeted collection strategies that significantly improved collection recovery rates and eliminated guesswork in team daily priorities."
     ]
   },
   {
-    id: "proj_4",
-    title: "Billing Collection Performance Analysis",
-    tags: ["Python", "Pandas", "SQL", "Power BI"],
+    id: "proj_automation_bots",
+    title: "Field Operations & Order Tracking Telegram Bots (TPISurvey & CheckOrder)",
+    tags: ["Python", "Telegram Bot API", "Google Sheets API", "RPA & Automation"],
     bullets: [
-      "Extracted, cleaned, validated, and transformed billing and collection data to ensure accuracy and consistency for analysis.",
-      "Conducted exploratory data analysis to identify payment trends, collection patterns, customer segments, and factors affecting collection performance.",
-      "Analyzed collection rate, payment status, outstanding balance, aging period, and customer response as key performance indicators.",
-      "Segmented customers based on payment behavior and collection risk to support targeted collection strategies.",
-      "Developed an interactive Power BI dashboard to monitor collection performance, high-risk customer segments, and operational trends.",
-      "Presented data-driven recommendations to help the collection team prioritize customers and improve collection effectiveness."
+      "Context & Problem: Field surveyors and internal coordinators spent hours daily on manual data lookups across 40,000+ records and repetitive order status inquiries.",
+      "Data & Approach: Developed two asynchronous Telegram Bots in Python integrated with Google Sheets API and Google Maps geolocation query logic.",
+      "Operational Action: Automated instant query retrieval, address geocoding, and order status verification with <2 second response latency.",
+      "Impact & Numbers: Reduced manual query tracking workload by 100%, enabling surveyors to navigate to locations instantly without manual office assistance."
+    ]
+  },
+  {
+    id: "proj_nlp_journal",
+    title: "Indonesian Journal Abstract Classification (NLP & Machine Learning)",
+    tags: ["Python", "Machine Learning", "NLP", "Naive Bayes", "Scikit-Learn"],
+    bullets: [
+      "Context & Problem: Manual document categorization and indexing of academic research abstracts is time-intensive and error-prone.",
+      "Data & Approach: Built an NLP text classification pipeline incorporating Indonesian POS Tagging, TF-IDF feature extraction, and Naive Bayes modeling in Python.",
+      "Operational Action: Optimized hyperparameters and evaluated model performance across Confusion Matrix, Precision, Recall, and F1-Score.",
+      "Impact & Numbers: Achieved 96% classification accuracy across a dataset of 465 academic papers."
     ]
   }
 ];
 
 const PROJECTS_ID = [
   {
-    id: "proj_1",
-    title: "Indonesian Journal Abstract Classification",
-    tags: ["Python", "Naive Bayes", "Natural Language Processing", "POS Tagging"],
+    id: "proj_qcc3",
+    title: "Peningkatan Revenue Klien BPO Sales (Penghargaan QCC Batch 3)",
+    tags: ["Peningkatan Revenue", "Root Cause Analysis", "Power BI", "Monitoring SLA", "Operasional Sales"],
     bullets: [
-      "Mengembangkan model machine learning untuk mengklasifikasikan abstrak jurnal berbahasa Indonesia menggunakan algoritma Naive Bayes dan fitur Indonesian POS Tagging.",
-      "Melakukan text preprocessing, feature extraction, pelatihan model, dan evaluasi performa menggunakan Python.",
-      "Mengevaluasi performa model menggunakan accuracy, precision, recall, F1-score, dan confusion matrix.",
-      "Mencapai akurasi 96% menggunakan dataset berisi 465 abstrak jurnal."
+      "Masalah & Konteks: Revenue klien MSM BPO (Job Sales) stagnan di rata-rata Rp 700 juta/bulan (periode September–November 2025) akibat bottleneck alur sales dan tingginya drop-off prospek.",
+      "Pendekatan & Data: Melakukan analisis akar masalah pada seluruh alur sales funnel, membangun dashboard monitoring harian di Power BI, dan memetakan titik drop-off konversi per agen sales daerah.",
+      "Aksi Operasional: Melakukan restrukturisasi protokol SLA, merevisi skema insentif untuk jenis sales berkontribusi tinggi, serta mempercepat koordinasi antara tim rekrutmen dan operasional klien.",
+      "Hasil & Dampak: Revenue bulanan klien melesat dari Rp 700jt menjadi Rp 2,0 Miliar/bulan (pertumbuhan 285%), meraih Special Recognition Award QCC Batch 3 di SIMGROUP (April 2026)."
     ]
   },
   {
-    id: "proj_2",
-    title: "TPISurvey_BOT",
-    tags: ["Python", "Telegram Bot API", "Google Sheets API"],
+    id: "proj_qcc2",
+    title: "Peningkatan Gross Margin Survei Klien (Penghargaan QCC Batch 2)",
+    tags: ["Gross Margin Optimization", "Analisis Biaya", "Operasional Lapangan", "Unit Economics"],
     bullets: [
-      "Mengembangkan Telegram Bot untuk mengambil dan menyajikan informasi dari basis data berisi lebih dari 40.000 records.",
-      "Mengimplementasikan query logic dan integrasi Google Maps untuk mendukung aktivitas surveyor lapangan.",
-      "Meningkatkan aksesibilitas informasi survei dan mengurangi aktivitas pencarian data secara manual."
+      "Masalah & Konteks: Gross margin proyek survei klien area JABODETABEK tertahan di angka 20% akibat tingginya biaya perjalanan lapangan dan jadwal penugasan surveyor yang belum optimal.",
+      "Pendekatan & Data: Menganalisis komponen biaya survei, radius penugasan, produktivitas surveyor, dan unit economics per titik lokasi.",
+      "Aksi Operasional: Mengimplementasikan zonasi wilayah kerja yang ketat, mengoptimasi rute perjalanan surveyor, dan mempercepat validasi data lapangan.",
+      "Hasil & Dampak: Berhasil meningkatkan Gross Margin dari 20% menjadi 22%, mendongkrak profitabilitas bersih proyek dan meraih Juara 2 QCC Batch 2 SIMGROUP (Agustus 2025)."
     ]
   },
   {
-    id: "proj_3",
-    title: "CheckOrder_BOT",
-    tags: ["Python", "Telegram Bot API", "Google Sheets API"],
+    id: "proj_billing",
+    title: "Analisis Performa Billing Collection & Segmentasi Risiko",
+    tags: ["Python", "Pandas", "SQL", "Power BI", "Risk Modeling"],
     bullets: [
-      "Mengembangkan Telegram Bot yang terintegrasi dengan Google Sheets untuk menyediakan informasi tracking order terkini.",
-      "Mengotomasi pengecekan status order berdasarkan nomor order, menghilangkan aktivitas pengecekan manual yang berulang.",
-      "Mengurangi beban kerja tracking manual hingga 100%."
+      "Masalah & Konteks: Penumpukan tagihan jatuh tempo dan antrean penagihan yang belum terprioritaskan memperlambat perputaran arus kas penagihan.",
+      "Pendekatan & Data: Mengekstraksi, membersihkan, dan mentransformasi data riwayat penagihan dengan SQL & Python (Pandas), kemudian melakukan segmentasi debitur berdasarkan pola pembayaran dan masa tunggakan (aging).",
+      "Aksi Operasional: Membangun dashboard eksekutif interaktif Power BI dengan risk-scoring otomatis untuk memandu tim penagihan memprioritaskan akun bernilai tinggi.",
+      "Hasil & Dampak: Menghasilkan strategi penagihan yang tepat sasaran, meningkatkan recovery rate tagihan, dan mengeliminasi proses manual dalam penentuan target harian."
     ]
   },
   {
-    id: "proj_4",
-    title: "Billing Collection Performance Analysis",
-    tags: ["Python", "Pandas", "SQL", "Power BI"],
+    id: "proj_automation_bots",
+    title: "Bot Telegram Otomasi Survei Lapangan & Tracking Order (TPISurvey & CheckOrder)",
+    tags: ["Python", "Telegram Bot API", "Google Sheets API", "RPA & Otomasi"],
     bullets: [
-      "Mengekstraksi, membersihkan, memvalidasi, dan mentransformasi data billing dan collection untuk memastikan akurasi dan konsistensi analisis.",
-      "Melakukan exploratory data analysis untuk mengidentifikasi tren pembayaran, pola collection, segmen pelanggan, dan faktor yang memengaruhi performa collection.",
-      "Menganalisis collection rate, status pembayaran, saldo outstanding, aging period, dan respons pelanggan sebagai indikator kinerja utama.",
-      "Melakukan segmentasi pelanggan berdasarkan perilaku pembayaran dan risiko collection untuk mendukung strategi collection yang tertarget.",
-      "Mengembangkan dashboard Power BI interaktif untuk memantau performa collection, segmen pelanggan berisiko tinggi, dan tren operasional.",
-      "Menyampaikan rekomendasi berbasis data untuk membantu tim collection memprioritaskan pelanggan dan meningkatkan efektivitas collection."
+      "Masalah & Konteks: Tim surveyor lapangan dan koordinator kantor menghabiskan banyak waktu mencari data manual pada basis data berisi 40.000+ data dan pengecekan status order yang berulang.",
+      "Pendekatan & Data: Mengembangkan dua Bot Telegram otomatis berbasis Python yang terhubung dengan Google Sheets API dan query lokasi Google Maps.",
+      "Aksi Operasional: Mengotomasi pencarian data survei, geocoding alamat, dan pengecekan status pesanan secara instan dengan waktu respons < 2 detik.",
+      "Hasil & Dampak: Mengurangi beban kerja pencarian manual hingga 100%, mempercepat mobilisasi surveyor lapangan tanpa perlu menunggu bantuan admin kantor."
+    ]
+  },
+  {
+    id: "proj_nlp_journal",
+    title: "Klasifikasi Abstrak Jurnal Bahasa Indonesia (NLP & Machine Learning)",
+    tags: ["Python", "Machine Learning", "NLP", "Naive Bayes", "Scikit-Learn"],
+    bullets: [
+      "Masalah & Konteks: Pengelompokan dan pengindeksan dokumen abstrak karya ilmiah secara manual memakan waktu lama dan rentan inkonsistensi.",
+      "Pendekatan & Data: Membangun pipeline NLP klasifikasi teks dengan fitur Indonesian POS Tagging, ekstraksi TF-IDF, dan algoritma Naive Bayes menggunakan Python.",
+      "Aksi Operasional: Melakukan evaluasi performa model secara komprehensif menggunakan Confusion Matrix, Precision, Recall, dan F1-Score.",
+      "Hasil & Dampak: Berhasil mencapai akurasi klasifikasi sebesar 96% pada dataset 465 dokumen abstrak jurnal."
     ]
   }
 ];
 
 const SKILLS_EN = [
   {
-    id: "skill_1",
+    id: "skill_analytics",
+    category: "Analytics & Data Intelligence",
+    skills: [
+      "SQL (Joins, Aggregations)",
+      "Python (Pandas, NumPy, Scikit-learn)",
+      "Power BI & DAX",
+      "Exploratory Data Analysis (EDA)",
+      "Data Cleaning & ETL",
+      "Statistical Modeling",
+      "Microsoft Fabric",
+      "Microsoft Azure GenAI"
+    ]
+  },
+  {
+    id: "skill_automation",
+    category: "Automation & Workflow Orchestration",
+    skills: [
+      "UiPath RPA",
+      "Power Automate",
+      "Telegram Bot API",
+      "Google Sheets API",
+      "ClickUp",
+      "Process Mapping & SOP"
+    ]
+  },
+  {
+    id: "skill_business",
     category: "Business & Account Management",
-    skills: ["Account Management", "Client Relationship Management (CRM)", "Contract Negotiation", "Portfolio & Revenue Growth", "Business Development", "KPI/SLA Monitoring", "Stakeholder Management", "Risk Management"]
+    skills: [
+      "Account Management",
+      "Client Relationship (CRM)",
+      "Portfolio & Revenue Growth",
+      "Contract & Rate Negotiation",
+      "KPI & SLA Monitoring",
+      "Stakeholder Management",
+      "Risk Management",
+      "BPO Operations"
+    ]
   },
   {
-    id: "skill_2",
-    category: "Programming",
-    skills: ["Python", "SQL", "R"]
-  },
-  {
-    id: "skill_3",
-    category: "Libraries",
-    skills: ["Pandas", "NumPy", "scikit-learn"]
-  },
-  {
-    id: "skill_4",
-    category: "Data Science",
-    skills: ["Data Cleaning", "EDA", "Feature Engineering", "Classification", "Regression", "Hypothesis Testing", "Model Evaluation"]
-  },
-  {
-    id: "skill_5",
-    category: "Visualization",
-    skills: ["Power BI", "Excel", "PowerPoint"]
-  },
-  {
-    id: "skill_6",
-    category: "Automation",
-    skills: ["UiPath", "Power Automate", "Google Sheets", "Telegram Bot API"]
-  },
-  {
-    id: "skill_7",
-    category: "Tools",
-    skills: ["Jupyter Notebook", "Google Colab", "Git", "GitHub"]
+    id: "skill_tools",
+    category: "Developer Tools & Environments",
+    skills: [
+      "Jupyter Notebook",
+      "Google Colab",
+      "Git & GitHub",
+      "Excel Advanced (Pivot, Power Query)"
+    ]
   }
 ];
 
 const SKILLS_ID = [
   {
-    id: "skill_1",
-    category: "Manajemen Bisnis & Akun",
-    skills: ["Account Management", "Client Relationship Management (CRM)", "Contract Negotiation", "Portfolio & Revenue Growth", "Business Development", "KPI/SLA Monitoring", "Stakeholder Management", "Risk Management"]
+    id: "skill_analytics",
+    category: "Analisis & Inteligensi Data",
+    skills: [
+      "SQL (Query Kompleks, Aggregasi)",
+      "Python (Pandas, NumPy, Scikit-learn)",
+      "Power BI & DAX",
+      "Exploratory Data Analysis (EDA)",
+      "Data Cleaning & ETL",
+      "Pemodelan Statistik",
+      "Microsoft Fabric",
+      "Microsoft Azure GenAI"
+    ]
   },
   {
-    id: "skill_2",
-    category: "Bahasa Pemrograman",
-    skills: ["Python", "SQL", "R"]
+    id: "skill_automation",
+    category: "Otomasi & Manajemen Alur Kerja",
+    skills: [
+      "UiPath RPA",
+      "Power Automate",
+      "Telegram Bot API",
+      "Google Sheets API",
+      "ClickUp",
+      "Pemetaan Proses & SOP"
+    ]
   },
   {
-    id: "skill_3",
-    category: "Library",
-    skills: ["Pandas", "NumPy", "scikit-learn"]
+    id: "skill_business",
+    category: "Manajemen Akun & Bisnis",
+    skills: [
+      "Account Management",
+      "Hubungan Klien (CRM)",
+      "Pertumbuhan Revenue Portofolio",
+      "Negosiasi Kontrak & Rate",
+      "Monitoring KPI & SLA",
+      "Manajemen Stakeholder",
+      "Manajemen Risiko",
+      "Operasional BPO"
+    ]
   },
   {
-    id: "skill_4",
-    category: "Analisis Data",
-    skills: ["Data Cleaning", "EDA", "Feature Engineering", "Klasifikasi", "Regresi", "Hypothesis Testing", "Evaluasi Model"]
-  },
-  {
-    id: "skill_5",
-    category: "Visualisasi",
-    skills: ["Power BI", "Excel", "PowerPoint"]
-  },
-  {
-    id: "skill_6",
-    category: "Otomasi",
-    skills: ["UiPath", "Power Automate", "Google Sheets", "Telegram Bot API"]
-  },
-  {
-    id: "skill_7",
-    category: "Perangkat",
-    skills: ["Jupyter Notebook", "Google Colab", "Git", "GitHub"]
+    id: "skill_tools",
+    category: "Perangkat & Lingkungan Kerja",
+    skills: [
+      "Jupyter Notebook",
+      "Google Colab",
+      "Git & GitHub",
+      "Excel Tingkat Lanjut (Pivot, Power Query)"
+    ]
   }
 ];
 
