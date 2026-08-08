@@ -254,14 +254,10 @@ function renderEducation() {
         : '<div class="cert-desc-text" style="color:var(--text-muted); font-style:italic;">Verified competence & credential completion.</div>';
 
       const actionBtnHtml = cert.image
-        ? `<button class="btn btn-secondary btn-sm" onclick="viewCertImage('${cert.id}')" style="font-size:11.5px; padding:4px 10px; gap:6px; border-color:var(--border-subtle);">
-             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-               <circle cx="12" cy="12" r="3"></circle>
-             </svg>
-             <span>View Certificate</span>
-           </button>`
-        : `<span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">Internal Company Award</span>`;
+        ? ''
+        : `<div class="cert-footer-row">
+             <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">Internal Company Award</span>
+           </div>`;
 
       return `
         <div class="cert-card reveal show" data-id="${cert.id}">
@@ -276,9 +272,7 @@ function renderEducation() {
             </div>
             <h4 class="cert-title-text">${escapeHtml(cert.title)}</h4>
             ${descHtml}
-            <div class="cert-footer-row">
-              ${actionBtnHtml}
-            </div>
+            ${actionBtnHtml}
           </div>
         </div>
       `;
