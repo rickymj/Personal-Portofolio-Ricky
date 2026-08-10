@@ -6,11 +6,12 @@ export default defineConfig({
 	plugins: [
 		sveltekit({
 			compilerOptions: {
-				// Force runes mode for the project, except for libraries. Can be removed in svelte 6.
 				runes: ({ filename }) =>
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
-
+			paths: {
+				base: process.env.NODE_ENV === 'production' ? '/Personal-Portofolio-Ricky' : ''
+			},
 			adapter: adapter({
 				pages: 'build',
 				assets: 'build',
