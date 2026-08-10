@@ -1,6 +1,10 @@
+<script>
+	import { base } from '$app/paths';
+</script>
+
 <svelte:head>
-  <script src="/js/data.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="{base}/js/data.js"></script>
+  <script src="{base}/js/app.js"></script>
 </svelte:head>
 
 <div class="ambient-bg"></div>
