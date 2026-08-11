@@ -63,12 +63,12 @@ function showToast(message) {
   try {
     const toast = document.getElementById(CONFIG.DOM_IDS.TOAST);
     const text = document.getElementById(CONFIG.DOM_IDS.TOAST_TEXT);
-    
+
     if (!toast || !text) return;
-    
+
     text.textContent = message;
     toast.classList.add(CONFIG.CLASSES.SHOW);
-    
+
     setTimeout(() => {
       toast.classList.remove(CONFIG.CLASSES.SHOW);
     }, CONFIG.TOAST_DURATION);
@@ -114,7 +114,7 @@ const ThemeManager = {
 
     themeBtn.addEventListener('click', () => this.toggleTheme());
   },
-  
+
   toggleTheme() {
     try {
       const isLight = document.documentElement.classList.contains(CONFIG.CLASSES.LIGHT);
@@ -146,7 +146,7 @@ const ScrollManager = {
   init() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links a');
-    
+
     if (sections.length === 0 || navLinks.length === 0) return;
 
     window.addEventListener('scroll', () => {
@@ -183,7 +183,7 @@ const LightboxManager = {
 
     if (btnCloseTop) btnCloseTop.addEventListener('click', () => this.close());
     if (btnCloseBottom) btnCloseBottom.addEventListener('click', () => this.close());
-    
+
     if (modal) {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) this.close();
@@ -193,7 +193,7 @@ const LightboxManager = {
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') this.close();
     });
-    
+
     // Bind global for inline onclick
     window.openImageLightbox = this.open.bind(this);
     window.viewCertImage = this.viewCert.bind(this);
@@ -204,12 +204,12 @@ const LightboxManager = {
       const modal = safeGetElement(CONFIG.DOM_IDS.MODAL);
       const modalTitle = safeGetElement(CONFIG.DOM_IDS.MODAL_TITLE);
       const imgEl = safeGetElement(CONFIG.DOM_IDS.MODAL_IMG);
-      
+
       if (!modal) return;
-      
+
       if (imgEl && src) imgEl.src = src;
       if (modalTitle && title) modalTitle.innerHTML = `<span>${escapeHtml(title)}</span>`;
-      
+
       modal.classList.add(CONFIG.CLASSES.OPEN);
     } catch (error) {
       console.error("Error opening lightbox:", error);
@@ -220,7 +220,7 @@ const LightboxManager = {
     const modal = safeGetElement(CONFIG.DOM_IDS.MODAL);
     if (modal) modal.classList.remove(CONFIG.CLASSES.OPEN);
   },
-  
+
   viewCert(certId) {
     const cert = state.certifications.find(c => c.id === certId);
     if (!cert || !cert.image) return;
@@ -251,7 +251,7 @@ function handleCVDownloads() {
 
 function applyRevealAnimations() {
   if (!('IntersectionObserver' in window)) return;
-  
+
   try {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -261,7 +261,7 @@ function applyRevealAnimations() {
         }
       });
     }, { threshold: 0.08 });
-    
+
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   } catch (error) {
     console.error("Error setting up intersection observer:", error);
@@ -291,7 +291,7 @@ function generateEvidenceHtml(evidenceButtons, title) {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
                 <span>${escapeHtml(btn.label)}</span>
               </a>`;
-    } 
+    }
     if (btn.image) {
       return `<button type="button" onclick="openImageLightbox('${escapeHtml(btn.image)}', '${escapeHtml(title)}')" class="btn-evidence">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
@@ -479,7 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
   try {
     loadData();
     renderUI();
-    
+
     ThemeManager.init();
     ScrollManager.init();
     LightboxManager.init();
