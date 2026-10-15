@@ -44,7 +44,7 @@ const EXPERIENCES_EN = [
     role: "Account Manager",
     type: "Full-time",
     department: "LOB MSM BPO",
-    date: "Jan 2025 - Present",
+    date: "Jan 2025 - Oct 2026",
     badges: [],
     bullets: [
       "Analyzed revenue, SLA, workforce, and account-performance data for a portfolio of approximately 1,600 outsourced personnel and contracts valued at IDR 7–8 billion.",
